@@ -5,7 +5,8 @@
   "description": "Guidebox Add-on - find where to stream your favorite movies and shows",
   "main": "guidebox.js",
   "scripts": {
-    "test": "tape test/*"
+    "test": "tape test/*",
+    "start": "node ./guidebox.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "homepage": "https://github.com/Ivshti/guidebox-stremio",
   "dependencies": {
     "lodash": "^3.10.1",
+    "needle": "^0.10.0",
     "stremio-addons": "^1.8.3"
   }
 }

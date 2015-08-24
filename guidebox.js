@@ -1,6 +1,8 @@
-var Stremio = require("../");
+var Stremio = require("stremio-addons");
 var stremioCentral = "http://api8.herokuapp.com";
 //var mySecret = "your secret"; 
+
+var GUIDEBOX_KEY = "process.env.GUIDEBOX_KEY";
 
 var pkg = require("./package");
 var manifest = { 
