@@ -20,11 +20,12 @@ var manifest = {
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
 var idCache = {}; // consider persisting that via leveldb on /tmp
-function getGuideBoxId(imdb_id, callback)
+function getGuideBoxId(query, callback)
 {
+    var imdb_id = query.imdb_id;
     if (! imdb_id) return callback(new Error("imdb_id should be provided"));
     if (idCache[imdb_id]) return callback(null, idCache[imdb_id]);
-    needle.get(GUIDEBOX_BASE+"/search/id/imdb/"+imdb_id, opts, function(err, resp, body) {
+    needle.get(GUIDEBOX_BASE+"/search/"+( query.hasOwnProperty("season") ? "" : "movie/" )+"id/imdb/"+imdb_id, opts, function(err, resp, body) {
         if (err) return callback(err);
         idCache[imdb_id] = body.id;
         return callback(null, body.id);
@@ -34,7 +35,7 @@ function getGuideBoxId(imdb_id, callback)
 var addon = new Stremio.Server({
     "stream.get": function(args, callback, user) {
         if (! args.query) return callback();
-        getGuideBoxId(args.query.imdb_id, function (err, id) {
+        getGuideBoxId(args.query, function(err, id) {
             if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
 
             if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, { availability: 0 });
@@ -67,7 +68,7 @@ var addon = new Stremio.Server({
                 var result = { availability: Math.min(sources.length, 4) };
                 if (sources[0]) _.extend(result, { name: sources[0].display_name, externalUrl: sources[0].link });
                 callback(null, result);
-            };
+            }
         });
         //return callback(null, dataset[args.query.imdb_id] || null);
     },
