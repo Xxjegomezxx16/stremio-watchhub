@@ -19,21 +19,32 @@ var manifest = {
 
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
+var idCache = {}; // consider persisting that via leveldb on /tmp
+function getGuideBoxId(imdb_id, callback)
+{
+    if (! imdb_id) return callback(new Error("imdb_id should be provided"));
+    if (idCache[imdb_id]) return callback(null, idCache[imdb_id]);
+    needle.get(GUIDEBOX_BASE+"/search/id/imdb/"+imdb_id, opts, function(err, resp, body) {
+        if (err) return callback(err);
+        idCache[imdb_id] = body.id;
+        return callback(null, body.id);
+    });
+}
+
 var addon = new Stremio.Server({
     "stream.get": function(args, callback, user) {
         if (! args.query) return callback();
-        needle.get(GUIDEBOX_BASE+"/search/id/imdb/"+args.query.imdb_id, opts, function(err, resp, body) {
+        getGuideBoxId(args.query.imdb_id, function (err, id) {
             if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
             
-            var id = body.id, 
-                sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
+            var sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
                 platform = "web"; // "web", "ios", "android" or "all"
 
             if (args.query.hasOwnProperty("season")) {
                 // TV show
-                needle.get(GUIDEBOX_BASE+"/show/"+id+"/episodes/"+args.query.season+"/0/300/"+sources+"/"+platform, function(err, resp, body) {
+                needle.get(GUIDEBOX_BASE+"/show/"+id+"/episodes/"+args.query.season+"/0/100/"+sources+"/"+platform+"/true", function(err, resp, body) {
                     if (err) { console.error(err) ; return callback({ code: 1, message: "internal error" }) }
-
+                    console.log(body)
                 });
             } else {
                 // Movie
