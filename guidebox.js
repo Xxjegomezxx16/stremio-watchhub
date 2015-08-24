@@ -18,9 +18,7 @@ var manifest = {
     settings: [{
         name: "Default source",
         type: "select",
-        options: [
-            "All", "Free", "Subscription", "TV Everywhere", "Paid", "Netflix", "hulu"
-        ]
+        options: [ "All services", "Free services", "Subscription services", "TV Everywhere services", "Netflix", "Hulu", "iTunes", "VUDU"]
     }],
 };
 
