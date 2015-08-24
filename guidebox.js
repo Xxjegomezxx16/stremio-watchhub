@@ -69,6 +69,8 @@ var addon = new Stremio.Server({
                 .concat(body.purchase_web_sources || [])
                 .concat(body.subscription_web_sources || []);
 
+                //console.log(body);
+
                 var result = { availability: Math.min(sources.length, 4) };
                 if (sources[0]) _.extend(result, { name: sources[0].display_name, externalUrl: sources[0].link });
                 callback(null, result);
