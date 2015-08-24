@@ -22,6 +22,11 @@ var manifest = {
     }],
 };
 
+/* 
+ * Guildebox API guide
+ * https://api.guidebox.com/apidocs#movies
+ */
+
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
 // TODO: cache all calls to guidebox over leveldb/mongodb/redis (leveldb seems best) with TTL
