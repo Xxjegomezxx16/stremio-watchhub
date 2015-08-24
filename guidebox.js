@@ -19,7 +19,11 @@ var manifest = {
 
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
-var idCache = {}; // consider persisting that via leveldb on /tmp
+// TODO: cache all calls to guidebox over leveldb/mongodb/redis (leveldb seems best) with TTL
+// Then, this will become obsolete 
+// guidebox is limited to 100 000 / month
+
+var idCache = {}; 
 function getGuideBoxId(query, callback)
 {
     var imdb_id = query.imdb_id;
