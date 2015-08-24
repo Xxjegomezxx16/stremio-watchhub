@@ -38,7 +38,7 @@ var addon = new Stremio.Server({
         getGuideBoxId(args.query, function(err, id) {
             if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
 
-            if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, { availability: 0 });
+            if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, { availability: 0 }); }
             
             var sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
                 platform = "web"; // "web", "ios", "android" or "all"
@@ -68,7 +68,7 @@ var addon = new Stremio.Server({
                 var result = { availability: Math.min(sources.length, 4) };
                 if (sources[0]) _.extend(result, { name: sources[0].display_name, externalUrl: sources[0].link });
                 callback(null, result);
-            }
+            };
         });
         //return callback(null, dataset[args.query.imdb_id] || null);
     },
