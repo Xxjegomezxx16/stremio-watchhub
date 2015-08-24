@@ -23,8 +23,22 @@ var addon = new Stremio.Server({
     "stream.get": function(args, callback, user) {
         if (! args.query) return callback();
         needle.get(GUIDEBOX_BASE+"/search/id/imdb/"+args.query.imdb_id, opts, function(err, resp, body) {
-            console.log(body)
-        })
+            if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
+            
+            var id = body.id, 
+                sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
+                platform = "web"; // "web", "ios", "android" or "all"
+
+            if (args.query.hasOwnProperty("season")) {
+                // TV show
+                needle.get(GUIDEBOX_BASE+"/show/"+id+"/episodes/"+args.query.season+"/0/300/"+sources+"/"+platform, function(err, resp, body) {
+                    if (err) { console.error(err) ; return callback({ code: 1, message: "internal error" }) }
+
+                });
+            } else {
+                // Movie
+            }
+        });
         //return callback(null, dataset[args.query.imdb_id] || null);
     },
     "stream.find": function(args, callback, user) {
