@@ -15,9 +15,13 @@ var manifest = {
     "types": ["movie", "series"],
     "filter": { "query.imdb_id": { "$exists": true }, "query.type": { "$in":["series","movie"] } },
     name: pkg.displayName, version: pkg.version, description: pkg.description,
-    /*settings: [{
-        name: ""
-    }],*/
+    settings: [{
+        name: "Default source",
+        type: "select",
+        options: [
+            "All", "Free", "Subscription", "TV Everywhere", "Paid", "Netflix", "hulu"
+        ]
+    }],
 };
 
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
