@@ -1,0 +1,29 @@
+{
+  "name": "guidebox-stremio",
+  "displayName": "Guidebox",
+  "version": "1.0.0",
+  "description": "Guidebox Add-on - find where to stream your favorite movies and shows",
+  "main": "guidebox.js",
+  "scripts": {
+    "test": "tape test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/Ivshti/guidebox-stremio"
+  },
+  "keywords": [
+    "guidebox",
+    "stremio",
+    "stremio-addons"
+  ],
+  "author": "Ivo Georgiev <ivo@linvo.com> (http://ivogeorgiev.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ivshti/guidebox-stremio/issues"
+  },
+  "homepage": "https://github.com/Ivshti/guidebox-stremio",
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "stremio-addons": "^1.8.3"
+  }
+}
