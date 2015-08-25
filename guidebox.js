@@ -81,8 +81,9 @@ var addon = new Stremio.Server({
 
                 //console.log(body);
 
+                // TODO: return many results if the Add-on API allows it 
                 var result = { availability: Math.min(sources.length, 4) };
-                if (sources[0]) _.extend(result, { name: sources[0].display_name, externalUrl: sources[0].link });
+                if (sources[0]) _.extend(result, { name: sources[0].display_name, externalUrl: sources[0].link, tag: [sources[0].source] });
                 callback(null, result);
             };
         });
