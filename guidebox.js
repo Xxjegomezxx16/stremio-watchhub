@@ -46,6 +46,16 @@ function getGuideBoxId(query, callback)
     });
 }
 
+var guideboxCache = { };
+function guideboxGet(path, callback) {
+    if (guideboxCache[path]) return callback(null, guideboxCache[path]);
+
+    needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
+        if (body) { guideboxCache[path] = body; setTimeout(function() { delete guideboxCache[path] }, 60*60*1000) };
+        callback(err, body);
+    });
+}
+
 var addon = new Stremio.Server({
     "stream.get": function(args, callback, user) {
         if (! args.query) return callback();
@@ -57,15 +67,16 @@ var addon = new Stremio.Server({
             var sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
                 platform = "web"; // "web", "ios", "android" or "all"
 
+            // TODO: isolate this in getGuidebox(), cache it with TTL
             if (args.query.hasOwnProperty("season")) {
                 // TV show
-                needle.get(GUIDEBOX_BASE+"/show/"+id+"/episodes/"+args.query.season+"/0/100/"+sources+"/"+platform+"/true", function(err, resp, body) {
+                guideboxGet("/show/"+id+"/episodes/"+args.query.season+"/0/100/"+sources+"/"+platform+"/true", function(err, body) {
                     if (err) { console.error(err) ; return callback({ code: 1, message: "internal error" }) }
                     serve(_.findWhere(body.results, { episode_number: parseInt(args.query.episode), season_number: parseInt(args.query.season) }));
                 });
             } else {
                 // Movie
-                needle.get(GUIDEBOX_BASE+"/movie/"+id, function(err, resp, body) {
+                guideboxGet("/movie/"+id, function(err, body) {
                     if (err) { console.error(err) ; return callback({ code: 2, message: "internal error" }) }
                     serve(body);
                 });
@@ -91,7 +102,7 @@ var addon = new Stremio.Server({
     },
     "stream.find": function(args, callback, user) {
         // only "availability" is required for stream.find, but we can return the whole object
-        // TODO
+        // TODO; use async.eachSeries - series because of the cache
         callback(null, { items: args.items.map(function(x) { return { availability: 1 } }) });
     }
 }, { /* secret: mySecret */ }, manifest);
