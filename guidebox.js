@@ -57,7 +57,7 @@ function guideboxGet(path, callback) {
 }
 
 var addon = new Stremio.Server({
-    "stream.get": function(args, callback, user) {
+    "stream.get": function getStream(args, callback, user) {
         if (! args.query) return callback();
         getGuideBoxId(args.query, function(err, id) {
             if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
@@ -102,8 +102,7 @@ var addon = new Stremio.Server({
     },
     "stream.find": function(args, callback, user) {
         // only "availability" is required for stream.find, but we can return the whole object
-        // TODO; use async.eachSeries - series because of the cache
-        callback(null, { items: args.items.map(function(x) { return { availability: 1 } }) });
+        getStream(args, function(err, resp) { callback(err, resp ? [resp] : err) }); // TODO TODO getStream to have retrieve multiple
     }
 }, { /* secret: mySecret */ }, manifest);
 
