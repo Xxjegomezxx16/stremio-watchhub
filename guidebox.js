@@ -93,9 +93,14 @@ function getStream(args, callback, user) {
 
             // TODO: return many results if the Add-on API allows it 
             callback(null, sources.map(function(source) {
+                var title = source.formats
+                    .sort(function(a, b) { return parseFloat(a.price) - parseFloat(b.price) }).slice(0,2)
+                    .map(function(t) { return t.price+"$ to "+t.type+" "+t.format }).join(", ");
+
                 return {
                     availability: 3,
                     name: source.display_name,
+                    title: title,
                     externalUrl: source.link,
                     tag: [source.source]
                 }
@@ -104,6 +109,7 @@ function getStream(args, callback, user) {
     });
     //return callback(null, dataset[args.query.imdb_id] || null);
 }
+//getStream({query:{imdb_id:"tt0816692"}},function(){})
 
 var addon = new Stremio.Server({
     "stream.get": function(args, callback, user) {
