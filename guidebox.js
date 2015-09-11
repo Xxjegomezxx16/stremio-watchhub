@@ -28,7 +28,7 @@ var manifest = {
  * https://api.guidebox.com/apidocs#movies
  */
 
-var pipe = new bagpipe(2); // poor man's solution to avoid hitting rate limits for now; in reality we need a concurrency-per-id type pipe
+var pipe = new bagpipe(5);
 
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
@@ -51,12 +51,17 @@ function getGuideBoxId(query, callback)
 
 var guideboxCache = { }, guideboxPrg = {};
 function guideboxGet(path, callback) {
-    // TODO: when we hit guideboxPrg, wait for this
     if (guideboxCache[path]) return callback(null, guideboxCache[path]);
+
+    if (guideboxPrg[path]) return guideboxPrg[path].push(callback); // wait for stuff in progress
+    guideboxPrg[path] = [];
 
     needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
         if (body) { guideboxCache[path] = body; setTimeout(function() { delete guideboxCache[path] }, 60*60*1000) };
         callback(err, body);
+
+        if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c){ c(err, body) }) };
+        delete guideboxPrg[path];
     });
 }
 
@@ -117,7 +122,8 @@ function getStream(args, callback, user) {
     //return callback(null, dataset[args.query.imdb_id] || null);
 }
 
-//pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(arguments)})
+//pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
+//pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
 
 
 var addon = new Stremio.Server({
