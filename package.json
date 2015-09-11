@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Ivshti/guidebox-stremio",
   "dependencies": {
+    "bagpipe": "^0.3.5",
     "lodash": "^3.10.1",
     "needle": "^0.10.0",
     "stremio-addons": "^1.9.1"

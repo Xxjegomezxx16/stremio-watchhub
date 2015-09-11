@@ -1,6 +1,7 @@
 var Stremio = require("stremio-addons");
 var needle = require("needle");
 var _ = require("lodash");
+var bagpipe = require("bagpipe");
 
 var stremioCentral = "http://api8.herokuapp.com";
 //var mySecret = "your secret"; 
@@ -27,6 +28,8 @@ var manifest = {
  * https://api.guidebox.com/apidocs#movies
  */
 
+var pipe = new bagpipe(2); // poor man's solution to avoid hitting rate limits for now; in reality we need a concurrency-per-id type pipe
+
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
 // TODO: cache all calls to guidebox over leveldb/mongodb/redis (leveldb seems best) with TTL
@@ -46,8 +49,9 @@ function getGuideBoxId(query, callback)
     });
 }
 
-var guideboxCache = { };
+var guideboxCache = { }, guideboxPrg = {};
 function guideboxGet(path, callback) {
+    // TODO: when we hit guideboxPrg, wait for this
     if (guideboxCache[path]) return callback(null, guideboxCache[path]);
 
     needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
@@ -58,6 +62,7 @@ function guideboxGet(path, callback) {
 
 function getStream(args, callback, user) {
     if (! args.query) return callback();
+
     getGuideBoxId(args.query, function(err, id) {
         if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
 
@@ -111,15 +116,17 @@ function getStream(args, callback, user) {
     });
     //return callback(null, dataset[args.query.imdb_id] || null);
 }
-//getStream({query:{imdb_id:"tt0816692"}},function(){})
+
+//pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(arguments)})
+
 
 var addon = new Stremio.Server({
     "stream.get": function(args, callback, user) {
-        getStream(args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
+        pipe.push(getStream, args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
     },
     "stream.find": function(args, callback, user) {
         // only "availability" is required for stream.find, but we can return the whole object
-        getStream(args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); // TODO TODO getStream to have retrieve multiple
+        pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); // TODO TODO getStream to have retrieve multiple
     }
 }, { /* secret: mySecret */ }, manifest);
 
