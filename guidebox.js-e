@@ -71,7 +71,7 @@ function getStream(args, callback, user) {
     getGuideBoxId(args.query, function(err, id) {
         if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
 
-        if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, { availability: 0 }); }
+        if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, []); }
         
         var sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
             platform = "web"; // "web", "ios", "android" or "all"
@@ -92,7 +92,7 @@ function getStream(args, callback, user) {
         }
 
         function serve(body) {
-            if (! body) return callback(null, { availability: 0 });
+            if (! body) return callback(null, [ ]);
             // TODO: preferences - HD vs SD
             var sources = (body.free_web_sources || [])
             .concat(body.subscription_web_sources || [])
@@ -119,7 +119,6 @@ function getStream(args, callback, user) {
             }));
         };
     });
-    //return callback(null, dataset[args.query.imdb_id] || null);
 }
 
 //pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
