@@ -117,7 +117,7 @@ var addon = new Stremio.Server({
     },
     "stream.find": function(args, callback, user) {
         // only "availability" is required for stream.find, but we can return the whole object
-        getStream(args, function(err, resp) { callback(err, resp ? resp.slice(0,5) : undefined) }); // TODO TODO getStream to have retrieve multiple
+        getStream(args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); // TODO TODO getStream to have retrieve multiple
     }
 }, { /* secret: mySecret */ }, manifest);
 
