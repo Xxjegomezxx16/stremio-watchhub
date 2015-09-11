@@ -56,53 +56,62 @@ function guideboxGet(path, callback) {
     });
 }
 
+function getStream(args, callback, user) {
+    if (! args.query) return callback();
+    getGuideBoxId(args.query, function(err, id) {
+        if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
+
+        if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, { availability: 0 }); }
+        
+        var sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
+            platform = "web"; // "web", "ios", "android" or "all"
+
+        // TODO: isolate this in getGuidebox(), cache it with TTL
+        if (args.query.hasOwnProperty("season")) {
+            // TV show
+            guideboxGet("/show/"+id+"/episodes/"+args.query.season+"/0/100/"+sources+"/"+platform+"/true", function(err, body) {
+                if (err) { console.error(err) ; return callback({ code: 1, message: "internal error" }) }
+                serve(_.findWhere(body.results, { episode_number: parseInt(args.query.episode), season_number: parseInt(args.query.season) }));
+            });
+        } else {
+            // Movie
+            guideboxGet("/movie/"+id, function(err, body) {
+                if (err) { console.error(err) ; return callback({ code: 2, message: "internal error" }) }
+                serve(body);
+            });
+        }
+
+        function serve(body) {
+            if (! body) return callback(null, { availability: 0 });
+            // TODO: preferences - HD vs SD
+            var sources = (body.free_web_sources || [])
+            .concat(body.subscription_web_sources || [])
+            .concat(body.tv_everywhere_web_sources || [])
+            .concat(body.purchase_web_sources || []);
+
+            //console.log(body);
+
+            // TODO: return many results if the Add-on API allows it 
+            callback(null, sources.map(function(source) {
+                return {
+                    availability: 3,
+                    name: source.display_name,
+                    externalUrl: source.link,
+                    tag: [source.source]
+                }
+            }));
+        };
+    });
+    //return callback(null, dataset[args.query.imdb_id] || null);
+}
+
 var addon = new Stremio.Server({
-    "stream.get": function getStream(args, callback, user) {
-        if (! args.query) return callback();
-        getGuideBoxId(args.query, function(err, id) {
-            if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
-
-            if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, { availability: 0 }); }
-            
-            var sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
-                platform = "web"; // "web", "ios", "android" or "all"
-
-            // TODO: isolate this in getGuidebox(), cache it with TTL
-            if (args.query.hasOwnProperty("season")) {
-                // TV show
-                guideboxGet("/show/"+id+"/episodes/"+args.query.season+"/0/100/"+sources+"/"+platform+"/true", function(err, body) {
-                    if (err) { console.error(err) ; return callback({ code: 1, message: "internal error" }) }
-                    serve(_.findWhere(body.results, { episode_number: parseInt(args.query.episode), season_number: parseInt(args.query.season) }));
-                });
-            } else {
-                // Movie
-                guideboxGet("/movie/"+id, function(err, body) {
-                    if (err) { console.error(err) ; return callback({ code: 2, message: "internal error" }) }
-                    serve(body);
-                });
-            }
-
-            function serve(body) {
-                if (! body) return callback(null, { availability: 0 });
-                // TODO: preferences - HD vs SD
-                var sources = (body.free_web_sources || [])
-                .concat(body.tv_everywhere_web_sources || [])
-                .concat(body.purchase_web_sources || [])
-                .concat(body.subscription_web_sources || []);
-
-                //console.log(body);
-
-                // TODO: return many results if the Add-on API allows it 
-                var result = { availability: Math.min(sources.length, 4) };
-                if (sources[0]) _.extend(result, { name: sources[0].display_name, externalUrl: sources[0].link, tag: [sources[0].source] });
-                callback(null, result);
-            };
-        });
-        //return callback(null, dataset[args.query.imdb_id] || null);
+    "stream.get": function(args, callback, user) {
+        getStream(args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
     },
     "stream.find": function(args, callback, user) {
         // only "availability" is required for stream.find, but we can return the whole object
-        getStream(args, function(err, resp) { callback(err, resp ? [resp] : err) }); // TODO TODO getStream to have retrieve multiple
+        getStream(args, function(err, resp) { callback(err, resp ? resp.slice(0,5) : undefined) }); // TODO TODO getStream to have retrieve multiple
     }
 }, { /* secret: mySecret */ }, manifest);
 
