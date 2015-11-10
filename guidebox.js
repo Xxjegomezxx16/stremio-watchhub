@@ -132,7 +132,7 @@ var addon = new Stremio.Server({
     "stream.find": function(args, callback, user) {
         pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); 
     }
-}, { /* secret: mySecret */ }, manifest);
+}, { stremioget: true, allow: ["http://api9.strem.io", "http://api8.herokuapp.com"] /* secret: mySecret */ }, manifest);
 
 var server = require("http").createServer(function (req, res) {
     addon.middleware(req, res, function() { res.end() }); // wire the middleware - also compatible with connect / express
