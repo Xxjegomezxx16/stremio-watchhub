@@ -2,7 +2,7 @@
   "name": "guidebox-stremio",
   "displayName": "Guidebox",
   "version": "1.2.3",
-  "description": "Guidebox Add-on - find where to stream your favorite movies and shows amongst Netflix, Hulu, Lovefilm and others",
+  "description": "Find where to stream your favorite movies and shows amongst Netflix, Hulu, Lovefilm, VUDU and others",
   "main": "guidebox.js",
   "scripts": {
     "test": "tape test/*",
