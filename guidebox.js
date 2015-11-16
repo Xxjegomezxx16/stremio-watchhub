@@ -66,7 +66,7 @@ function guideboxGet(path, callback) {
 }
 
 function getStream(args, callback, user) {
-    if (! args.query) return callback();
+    if (! (args.query && args.query.imdb_id)) return callback(null, []);
 
     getGuideBoxId(args.query, function(err, id) {
         if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
