@@ -69,7 +69,7 @@ function getStream(args, callback, user) {
     if (! (args.query && args.query.imdb_id)) return callback(null, []);
 
     getGuideBoxId(args.query, function(err, id) {
-        if (err) { console.error(err) ; return callback({ code: 0, message: "internal error" }) }
+        if (err) { console.error(err) ; return callback({ code: 9001, message: "cannot get guidebox id" }) }
 
         if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, []); }
         
@@ -80,13 +80,13 @@ function getStream(args, callback, user) {
         if (args.query.hasOwnProperty("season")) {
             // TV show
             guideboxGet("/show/"+id+"/episodes/"+args.query.season+"/0/100/"+sources+"/"+platform+"/true", function(err, body) {
-                if (err) { console.error(err) ; return callback({ code: 1, message: "internal error" }) }
+                if (err) { console.error(err) ; return callback({ code: 9002, message: "can not get guidebox season" }) }
                 serve(_.findWhere(body.results, { episode_number: parseInt(args.query.episode), season_number: parseInt(args.query.season) }));
             });
         } else {
             // Movie
             guideboxGet("/movie/"+id, function(err, body) {
-                if (err) { console.error(err) ; return callback({ code: 2, message: "internal error" }) }
+                if (err) { console.error(err) ; return callback({ code: 9003, message: "can not get guidebox movie" }) }
                 serve(body);
             });
         }
