@@ -28,7 +28,7 @@ var manifest = {
  * https://api.guidebox.com/apidocs#movies
  */
 
-var pipe = new bagpipe(5);
+var pipe = new bagpipe(100); 
 
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
@@ -65,7 +65,7 @@ function guideboxGet(path, callback) {
     });
 }
 
-function getStream(args, callback, user) {
+function getStream(args, callback) {
     if (! (args.query && args.query.imdb_id)) return callback(null, []);
 
     getGuideBoxId(args.query, function(err, id) {
@@ -127,9 +127,11 @@ function getStream(args, callback, user) {
 
 var addon = new Stremio.Server({
     "stream.get": function(args, callback, user) {
+        // TODO: do something if the queue is saturated
         pipe.push(getStream, args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
     },
     "stream.find": function(args, callback, user) {
+        // TODO: do something if the queue is saturated
         pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); 
     }
 }, { /* secret: mySecret */ stremioget: true, allow: ["http://api8.herokuapp.com","http://api9.strem.io"] }, manifest);
