@@ -106,7 +106,7 @@ function getStream(args, callback) {
             // TODO: return many results if the Add-on API allows it 
             callback(null, sources.map(function(source) {
                 var isFree = (body.free_web_sources || []).indexOf(source) > -1;
-                var isSubcription = (body.subscription_web_sources || []).indexOf(source) > -1;
+                var isSubscription = (body.subscription_web_sources || []).indexOf(source) > -1;
 
                 var title = (source.formats || [])
                     .sort(function(a, b) { return parseFloat(a.price) - parseFloat(b.price) }).slice(0,2)
@@ -121,7 +121,7 @@ function getStream(args, callback) {
                     title: title, tag: tag,
                     externalUrl: source.link,
                     isFree: isFree,
-                    isSubcription: isSubcription
+                    isSubscription: isSubscription
                 }
             }));
         };
