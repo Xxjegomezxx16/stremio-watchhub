@@ -16,6 +16,7 @@ var manifest = {
     "types": ["movie", "series"],
     "filter": { "query.imdb_id": { "$exists": true }, "query.type": { "$in":["series","movie"] } },
     name: pkg.displayName, version: pkg.version, description: pkg.description,
+    geolocation: ["US", "GB"],
     settings: [{
         name: "Default source",
         type: "select",
@@ -39,7 +40,7 @@ var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 var idCache = {}; 
 function getGuideBoxId(query, callback)
 {
-    var imdb_id = query.imdb_id;
+    var imdb_id = query && query.imdb_id;
     if (! imdb_id) return callback(new Error("imdb_id should be provided"));
     if (idCache[imdb_id]) return callback(null, idCache[imdb_id]);
     needle.get(GUIDEBOX_BASE+"/search/"+( query.hasOwnProperty("season") ? "" : "movie/" )+"id/imdb/"+imdb_id, opts, function(err, resp, body) {
@@ -54,13 +55,14 @@ function guideboxGet(path, callback) {
     if (guideboxCache[path]) return callback(null, guideboxCache[path]);
 
     if (guideboxPrg[path]) return guideboxPrg[path].push(callback); // wait for stuff in progress
+    
     guideboxPrg[path] = [];
 
     needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
         if (body) { guideboxCache[path] = body; setTimeout(function() { delete guideboxCache[path] }, 60*60*1000) };
+        
         callback(err, body);
-
-        if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c){ c(err, body) }) };
+        if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c) { c(err, body) }) };
         delete guideboxPrg[path];
     });
 }
