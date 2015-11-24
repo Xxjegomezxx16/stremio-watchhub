@@ -10,7 +10,7 @@ Currently US and UK supported - will be able to set that up manually through Str
 
 ## How to run?
 
-```
+```bash
 # Clone the repo
 git clone http://github.com/Ivshti/guidbox-stremio
 cd guidebox-stremio
@@ -20,3 +20,7 @@ node guidebox.js
 # Run stremio with --services=http://localhost:9005
 /Applications/Stremio.app/Contents/MacOS/Electron . --services=http://localhost:9005
 ```
+
+
+## License
+MIT
