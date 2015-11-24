@@ -6,3 +6,17 @@ When Stremio allows settings for Add-ons, you would be able to select which of t
 
 ## Regions
 Currently US and UK supported - will be able to set that up manually through Stremio Add-on settings
+
+
+## How to run?
+
+```
+# Clone the repo
+git clone http://github.com/Ivshti/guidbox-stremio
+cd guidebox-stremio
+npm install
+node guidebox.js
+
+# Run stremio with --services=http://localhost:9005
+/Applications/Stremio.app/Contents/MacOS/Electron . --services=http://localhost:9005
+```
