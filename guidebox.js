@@ -4,7 +4,6 @@ var _ = require("lodash");
 var bagpipe = require("bagpipe");
 
 var stremioCentral = "http://api8.herokuapp.com";
-//var mySecret = "your secret"; 
 
 var GUIDEBOX_KEY = "rKW2ZdAfUFVcmiFfJxNfejuqntjb91TH";
 var GUIDEBOX_REGION = "US"; // TODO: UK
@@ -59,7 +58,7 @@ function guideboxGet(path, callback) {
     guideboxPrg[path] = [];
 
     needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
-        if (body) { guideboxCache[path] = body; setTimeout(function() { delete guideboxCache[path] }, 60*60*1000) };
+        if (body) { guideboxCache[path] = body; /*setTimeout(function() { delete guideboxCache[path] }, 60*60*1000)*/ };
         
         callback(err, body);
         if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c) { c(err, body) }) };
