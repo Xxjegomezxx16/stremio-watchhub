@@ -28,43 +28,59 @@ var manifest = {
  * https://api.guidebox.com/apidocs#movies
  */
 
+var DAY = 24*60*60*1000;
+
 var pipe = new bagpipe(100); 
 
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
-// TODO: cache all calls to guidebox over leveldb/mongodb/redis (leveldb seems best) with TTL
-// Then, this will become obsolete 
-// guidebox is limited to 100 000 / month
+var cache = [];
+function cacheGet(domain, key, cb)
+{
+    cb(null, cache[domain+":"+key]);
+}
 
-var idCache = {}; 
+function cacheSet(domain, key, value, ttl) 
+{
+    cache[domain+":"+key] = value;
+    if (ttl && ttl < 30*DAY) setTimeout(function() { delete cache[domain+":"+key] }, ttl);
+}
+
 function getGuideBoxId(query, callback)
 {
     var imdb_id = query && query.imdb_id;
     if (! imdb_id) return callback(new Error("imdb_id should be provided"));
-    if (idCache[imdb_id]) return callback(null, idCache[imdb_id]);
-    needle.get(GUIDEBOX_BASE+"/search/"+( query.hasOwnProperty("season") ? "" : "movie/" )+"id/imdb/"+imdb_id, opts, function(err, resp, body) {
-	if (body.error) return callback(new Error(body.error));
-        if (err) return callback(err);
-        idCache[imdb_id] = body.id;
-        return callback(null, body.id);
+
+    cacheGet("id", imdb_id, function(err, res) {
+        if (res) return callback(null, res);
+
+        needle.get(GUIDEBOX_BASE+"/search/"+( query.hasOwnProperty("season") ? "" : "movie/" )+"id/imdb/"+imdb_id, opts, function(err, resp, body) {
+        if (body.error) return callback(new Error(body.error));
+            if (err) return callback(err);
+            cacheSet("id", imdb_id, body.id, 365*DAY);
+            return callback(null, body.id);
+        });
     });
 }
 
 var guideboxCache = { }, guideboxPrg = {};
 function guideboxGet(path, callback) {
-    if (guideboxCache[path]) return callback(null, guideboxCache[path]);
+    cacheGet("guidebox", path, function(err, res) {
+        if (res) return callback(null, res);
 
     if (guideboxPrg[path]) return guideboxPrg[path].push(callback); // wait for stuff in progress
-    
-    guideboxPrg[path] = [];
-
-    needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
-        if (body.error) { err = body.error; body = null; }
-        if (body) { guideboxCache[path] = body; /*setTimeout(function() { delete guideboxCache[path] }, 60*60*1000)*/ };
         
-        callback(err, body);
-        if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c) { c(err, body) }) };
-        delete guideboxPrg[path];
+        guideboxPrg[path] = [];
+
+        needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
+            if (body.error) { err = body.error; body = null; }
+
+            if (body) cacheSet("guidebox", path, body, 2*DAY);
+            
+            callback(err, body);
+            if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c) { c(err, body) }) };
+            delete guideboxPrg[path];
+        });
     });
 }
 
