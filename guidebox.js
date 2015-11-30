@@ -44,6 +44,7 @@ function getGuideBoxId(query, callback)
     if (! imdb_id) return callback(new Error("imdb_id should be provided"));
     if (idCache[imdb_id]) return callback(null, idCache[imdb_id]);
     needle.get(GUIDEBOX_BASE+"/search/"+( query.hasOwnProperty("season") ? "" : "movie/" )+"id/imdb/"+imdb_id, opts, function(err, resp, body) {
+	console.log(err,body)
         if (err) return callback(err);
         idCache[imdb_id] = body.id;
         return callback(null, body.id);
