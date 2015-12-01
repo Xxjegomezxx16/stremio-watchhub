@@ -34,30 +34,47 @@ var pipe = new bagpipe(100);
 
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
-var cache = [];
-function cacheGet(domain, key, cb)
-{
-    cb(null, cache[domain+":"+key]);
+var cacheSet, cacheGet;
+if (process.env.REDIS) {
+    // In redis
+    console.log("Using redis caching");
+
+    var redis = require("redis");
+    cacheGet = function (domain, key, cb) { 
+        redis.hget(domain, key, function(err, res) { 
+            if (err) return cb(err);
+            if (!res) return cb(null, null);
+            try { cb(null, JSON.parse(res)) } catch(e) { cb(e) }
+        }); 
+    };
+    cacheSet = function (domain, key, value, ttl) { 
+        redis.hset(domain, key, JSON.stringify(value));
+        // TODO: ttl
+    }
+} else {
+    // In memory
+    var cache = {};
+    cacheGet = function (domain, key, cb) { cb(null, cache[domain+":"+key]) }
+    cacheSet = function(domain, key, value, ttl) 
+    {
+        cache[domain+":"+key] = value;
+        if (ttl && ttl < 2*DAY) setTimeout(function() { delete cache[domain+":"+key] }, ttl);
+    }
 }
 
-function cacheSet(domain, key, value, ttl) 
-{
-    cache[domain+":"+key] = value;
-    if (ttl && ttl < 30*DAY) setTimeout(function() { delete cache[domain+":"+key] }, ttl);
-}
 
 function getGuideBoxId(query, callback)
 {
     var imdb_id = query && query.imdb_id;
     if (! imdb_id) return callback(new Error("imdb_id should be provided"));
 
-    cacheGet("id", imdb_id, function(err, res) {
+    cacheGet("guidebox-id", imdb_id, function(err, res) {
         if (res) return callback(null, res);
 
         needle.get(GUIDEBOX_BASE+"/search/"+( query.hasOwnProperty("season") ? "" : "movie/" )+"id/imdb/"+imdb_id, opts, function(err, resp, body) {
         if (body.error) return callback(new Error(body.error));
             if (err) return callback(err);
-            cacheSet("id", imdb_id, body.id, 365*DAY);
+            cacheSet("guidebox-id", imdb_id, body.id, 365*DAY);
             return callback(null, body.id);
         });
     });
@@ -75,7 +92,7 @@ function guideboxGet(path, callback) {
         needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
             if (body.error) { err = body.error; body = null; }
 
-            if (body) cacheSet("guidebox", path, body, 2*DAY);
+            if (body) cacheSet("guidebox", path, body, (body.results && body.results.length) ? 10*DAY : 2*DAY);
             
             callback(err, body);
             if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c) { c(err, body) }) };
