@@ -44,15 +44,15 @@ if (process.env.REDIS) {
     red.on("error", function(err) { console.error("redis err",err) });
 
     cacheGet = function (domain, key, cb) { 
-        red.hget(domain, key, function(err, res) { 
+        red.get(domain+":"+key, function(err, res) { 
             if (err) return cb(err);
             if (!res) return cb(null, null);
             try { cb(null, JSON.parse(res)) } catch(e) { cb(e) }
         }); 
     };
-    cacheSet = function (domain, key, value, ttl) { 
-        red.hset(domain, key, JSON.stringify(value));
-        // TODO: ttl
+    cacheSet = function (domain, key, value, ttl) {
+        if (ttl) red.setex(domain+":"+key, ttl/1000, JSON.stringify(value));
+        else red.set(domain+":"+key, JSON.stringify(value));
     }
 } else {
     // In memory
@@ -95,7 +95,7 @@ function guideboxGet(path, callback) {
         needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
             if (body.error) { err = body.error; body = null; }
 
-            if (body) cacheSet("guidebox", path, body, (body.results && body.results.length) ? 10*DAY : 2*DAY);
+            if (body && body.results) cacheSet("guidebox", path, body, (body.results && body.results.length) ? 10*DAY : 2*DAY);
             
             callback(err, body);
             if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c) { c(err, body) }) };
