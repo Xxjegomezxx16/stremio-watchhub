@@ -40,15 +40,18 @@ if (process.env.REDIS) {
     console.log("Using redis caching");
 
     var redis = require("redis");
+    var red = redis.createClient(process.env.REDIS);
+    red.on("error", function(err) { console.error("redis err",err) });
+
     cacheGet = function (domain, key, cb) { 
-        redis.hget(domain, key, function(err, res) { 
+        red.hget(domain, key, function(err, res) { 
             if (err) return cb(err);
             if (!res) return cb(null, null);
             try { cb(null, JSON.parse(res)) } catch(e) { cb(e) }
         }); 
     };
     cacheSet = function (domain, key, value, ttl) { 
-        redis.hset(domain, key, JSON.stringify(value));
+        red.hset(domain, key, JSON.stringify(value));
         // TODO: ttl
     }
 } else {
