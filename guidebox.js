@@ -51,8 +51,8 @@ if (process.env.REDIS) {
         }); 
     };
     cacheSet = function (domain, key, value, ttl) {
-        if (ttl) red.setex(domain+":"+key, ttl/1000, JSON.stringify(value));
-        else red.set(domain+":"+key, JSON.stringify(value));
+        if (ttl) red.setex(domain+":"+key, ttl/1000, JSON.stringify(value), function(e){ if (e) console.error(e) });
+        else red.set(domain+":"+key, JSON.stringify(value), function(e) { if (e) console.error(e) });
     }
 } else {
     // In memory
