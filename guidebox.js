@@ -110,7 +110,7 @@ function getStream(args, callback) {
     getGuideBoxId(args.query, function(err, id) {
         if (err) { console.error(err) ; return callback({ code: 9001, message: "cannot get guidebox id" }) }
 
-        if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, []); }
+        if (! id) { console.error("did not manage to match imdb id to guidebox ("+args.query.imdb_id+")"); return callback(null, []); }
         
         var sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
             platform = "web"; // "web", "ios", "android" or "all"
