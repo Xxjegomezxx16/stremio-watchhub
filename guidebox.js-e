@@ -51,8 +51,8 @@ if (process.env.REDIS) {
         }); 
     };
     cacheSet = function (domain, key, value, ttl) {
-        if (ttl) red.setex(domain+":"+key, ttl/1000, JSON.stringify(value));
-        else red.set(domain+":"+key, JSON.stringify(value));
+        if (ttl) red.setex(domain+":"+key, ttl/1000, JSON.stringify(value), function(e){ if (e) console.error(e) });
+        else red.set(domain+":"+key, JSON.stringify(value), function(e) { if (e) console.error(e) });
     }
 } else {
     // In memory
@@ -77,7 +77,7 @@ function getGuideBoxId(query, callback)
         needle.get(GUIDEBOX_BASE+"/search/"+( query.hasOwnProperty("season") ? "" : "movie/" )+"id/imdb/"+imdb_id, opts, function(err, resp, body) {
         if (body.error) return callback(new Error(body.error));
             if (err) return callback(err);
-            cacheSet("guidebox-id", imdb_id, body.id, 365*DAY);
+            if (body.id) cacheSet("guidebox-id", imdb_id, body.id, 365*DAY);
             return callback(null, body.id);
         });
     });
@@ -110,7 +110,7 @@ function getStream(args, callback) {
     getGuideBoxId(args.query, function(err, id) {
         if (err) { console.error(err) ; return callback({ code: 9001, message: "cannot get guidebox id" }) }
 
-        if (! id) { console.error("did not manage to match imdb id to guidebox"); return callback(null, []); }
+        if (! id) { console.error("did not manage to match imdb id to guidebox ("+args.query.imdb_id+")"); return callback(null, []); }
         
         var sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
             platform = "web"; // "web", "ios", "android" or "all"
