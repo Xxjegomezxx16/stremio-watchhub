@@ -15,7 +15,7 @@ var manifest = {
     "types": ["movie", "series"],
     "filter": { "query.imdb_id": { "$exists": true }, "query.type": { "$in":["series","movie"] } },
     name: pkg.displayName, version: pkg.version, description: pkg.description,
-    geolocation: ["US", "GB", "CA", "GE"],
+    geolocation: ["US", "GB", "CA", "GE", "IL"],
     settings: [{
         name: "Default source",
         type: "select",
