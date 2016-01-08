@@ -17,6 +17,7 @@ var manifest = {
     name: pkg.displayName, version: pkg.version, description: pkg.description,
     geolocation: ["US", "GB", "CA", "GE", "IL"],
     repository:  "http://github.com/Ivshti/guidebox-stremio",
+    endpoint: "http://guidebox.strem.io/stremioget"
     settings: [{
         name: "Default source",
         type: "select",
