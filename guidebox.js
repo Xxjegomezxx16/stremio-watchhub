@@ -18,7 +18,7 @@ var manifest = {
     icon: "http://www.strem.io/images/icon-guidebox-addon.png",
     geolocation: ["US", "GB", "CA", "GE", "IL"],
     repository:  "http://github.com/Ivshti/guidebox-stremio",
-    endpoint: "http://guidebox.strem.io/stremioget"
+    endpoint: "http://guidebox.strem.io/stremioget",
     settings: [{
         name: "Default source",
         type: "select",
