@@ -15,6 +15,7 @@ var manifest = {
     "types": ["movie", "series"],
     "filter": { "query.imdb_id": { "$exists": true }, "query.type": { "$in":["series","movie"] } },
     name: pkg.displayName, version: pkg.version, description: pkg.description,
+    icon: "http://www.strem.io/images/icon-guidebox-addon.png",
     geolocation: ["US", "GB", "CA", "GE", "IL"],
     repository:  "http://github.com/Ivshti/guidebox-stremio",
     settings: [{
