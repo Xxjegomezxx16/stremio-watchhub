@@ -120,7 +120,7 @@ function getStream(args, callback) {
             platform = "web"; // "web", "ios", "android" or "all"
 
         // TODO: isolate this in getGuidebox(), cache it with TTL
-        if (args.query.hasOwnProperty("season")) {
+        if (args.query.hasOwnProperty("season") || args.query.type == "series") {
             // TV show
             guideboxGet("/show/"+id+"/episodes/"+args.query.season+"/0/100/"+sources+"/"+platform+"/true", function(err, body) {
                 if (err) { console.error(err) ; return callback({ code: 9002, message: "can not get guidebox season" }) }
