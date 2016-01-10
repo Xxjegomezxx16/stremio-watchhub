@@ -1,7 +1,7 @@
 {
   "name": "guidebox-stremio",
   "displayName": "Guidebox",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Find where to stream your favorite movies and shows amongst Netflix, Hulu, Amazon and other UK/US services.",
   "main": "guidebox.js",
   "scripts": {
@@ -29,6 +29,6 @@
     "lodash": "^3.10.1",
     "needle": "^0.10.0",
     "redis": "^2.4.2",
-    "stremio-addons": "^1.16.9"
+    "stremio-addons": "^1.18.0"
   }
 }
