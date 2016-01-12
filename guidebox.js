@@ -50,6 +50,7 @@ if (process.env.REDIS) {
     cacheGet = function (domain, key, cb) { 
         red.get(domain+":"+key, function(err, res) { 
             if (err) return cb(err);
+            if (process.env.CACHING_LOG) console.log("cache on "+domain+":"+key+": "+(res ? "HIT" : "MISS"));
             if (!res) return cb(null, null);
             try { cb(null, JSON.parse(res)) } catch(e) { cb(e) }
         }); 
