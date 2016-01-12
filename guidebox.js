@@ -6,6 +6,7 @@ var bagpipe = require("bagpipe");
 var stremioCentral = "http://api8.herokuapp.com";
 
 var GUIDEBOX_KEY = "process.env.GUIDEBOX_KEY";
+//var GUIDEBOX_KEY = "process.env.GUIDEBOX_KEY";
 var GUIDEBOX_REGION = "US"; // TODO: UK
 var GUIDEBOX_BASE = "http://api-public.guidebox.com/v1.43/"+GUIDEBOX_REGION+"/"+GUIDEBOX_KEY;
 
