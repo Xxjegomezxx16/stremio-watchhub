@@ -94,7 +94,7 @@ function guideboxGet(path, callback) {
     cacheGet("guidebox", path, function(err, res) {
         if (res) return callback(null, res);
 
-    if (guideboxPrg[path]) return guideboxPrg[path].push(callback); // wait for stuff in progress
+        if (guideboxPrg[path]) return guideboxPrg[path].push(callback); // wait for stuff in progress
         
         guideboxPrg[path] = [];
 
@@ -103,8 +103,8 @@ function guideboxGet(path, callback) {
             if (body && body.error) { err = body.error; body = null; }
 
             var useful = body && ((body.results && body.results.length) || body.id);
-            var expire = useful ? (path.match("movie") ? 15*DAY : 6*DAY) : 3*DAY;
-            if (useful) cacheSet("guidebox", path, body, expire);
+            var expire = useful ? (path.match("movie") ? 15*DAY : 6*DAY) : 2*DAY;
+            if (body) cacheSet("guidebox", path, body, expire);
             
             callback(err, body);
             if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c) { c(err, body) }) };
