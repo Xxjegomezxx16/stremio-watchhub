@@ -5,7 +5,8 @@ var bagpipe = require("bagpipe");
 
 var stremioCentral = "http://api8.herokuapp.com";
 
-var GUIDEBOX_KEY = "rKW2ZdAfUFVcmiFfJxNfejuqntjb91TH";
+var GUIDEBOX_KEY = "rKxOgfnnBG0zBhycLnBIILMPOCbp7XPR";
+//var GUIDEBOX_KEY = "rKW2ZdAfUFVcmiFfJxNfejuqntjb91TH";
 var GUIDEBOX_REGION = "US"; // TODO: UK
 var GUIDEBOX_BASE = "http://api-public.guidebox.com/v1.43/"+GUIDEBOX_REGION+"/"+GUIDEBOX_KEY;
 
@@ -49,6 +50,7 @@ if (process.env.REDIS) {
     cacheGet = function (domain, key, cb) { 
         red.get(domain+":"+key, function(err, res) { 
             if (err) return cb(err);
+            if (process.env.CACHING_LOG) console.log("cache on "+domain+":"+key+": "+(res ? "HIT" : "MISS"));
             if (!res) return cb(null, null);
             try { cb(null, JSON.parse(res)) } catch(e) { cb(e) }
         }); 
@@ -75,6 +77,7 @@ function getGuideBoxId(query, callback)
     if (! imdb_id) return callback(new Error("imdb_id should be provided"));
 
     cacheGet("guidebox-id", imdb_id, function(err, res) {
+        if (err) console.error(err);
         if (res) return callback(null, res);
 
         needle.get(GUIDEBOX_BASE+"/search/"+( query.hasOwnProperty("season") ? "" : "movie/" )+"id/imdb/"+imdb_id, opts, function(err, resp, body) {
@@ -91,7 +94,7 @@ function guideboxGet(path, callback) {
     cacheGet("guidebox", path, function(err, res) {
         if (res) return callback(null, res);
 
-    if (guideboxPrg[path]) return guideboxPrg[path].push(callback); // wait for stuff in progress
+        if (guideboxPrg[path]) return guideboxPrg[path].push(callback); // wait for stuff in progress
         
         guideboxPrg[path] = [];
 
@@ -99,7 +102,9 @@ function guideboxGet(path, callback) {
             if (err) { err = err; body = null; }
             if (body && body.error) { err = body.error; body = null; }
 
-            if (body && body.results) cacheSet("guidebox", path, body, (body.results && body.results.length) ? (path.match("movie") ? 15*DAY : 6*DAY) : 2*DAY);
+            var useful = body && ((body.results && body.results.length) || body.id);
+            var expire = useful ? (path.match("movie") ? 15*DAY : 6*DAY) : 2*DAY;
+            if (body) cacheSet("guidebox", path, body, expire);
             
             callback(err, body);
             if (guideboxPrg[path]) { guideboxPrg[path].forEach(function(c) { c(err, body) }) };
