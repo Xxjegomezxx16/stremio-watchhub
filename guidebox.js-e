@@ -182,33 +182,54 @@ function getStream(args, callback) {
     });
 }
 
+//pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
+//pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
+
+
+/* Leanback mode - implement as channels
+ */
+var leanbackChannels = [];
 function findLeanback(args, callback) {
     guideboxGet("/leanback/all/0/200", function(err, all) {
         if (err) console.error(err);
-        callback(err ? { code: 18000, message: err.message || err } : null, all && all.results && all.results.map(function(channel, i, channels) {
+        
+        leanbackChannels = (all && all.results && all.results.map(function(channel, i, channels) {
             return {
                 id: "guidebox_id:"+channel.id,
                 // we have channel imdb_id sometimes, also freebase, wikipedia, tvdb
                 posterShape: "landscape",
                 poster: channel.artwork_448x252 || channel.artwork_608x342,
+                banner: channel.artwork_608x342,
                 name: channel.title,
                 type: "channel",
                 popularities: { guidebox: channels.length-i },
             }
-        }))
+        })) || leanbackChannels;
+
+        callback(err ? { code: 9050, message: err.message || err } : null, leanbackChannels);
     });
 }
+findLeanback({}, function() { }); // get leanbackChannels
 
 function getLeanback(args, callback) {
     if (! args.query) return callback(new Error("no query"));
     if (! args.query.guidebox_id) return callback(new Error("no guidebox_id"));
-    guideboxGet("/leanback/"+args.query.guidebox_id+"/0/400", function(err, channel) {
-        console.log(channel)
+    guideboxGet("/leanback/"+args.query.guidebox_id+"/0/100", function(err, videos) {
+        if (err) return callback({ message: err.message || err, code: 9051 });
+
+        var channel = _.findWhere(leanbackChannels, { id: "guidebox_id:" + args.query.guidebox_id });
+        if (! channel) return callback({ message: "no channel found" });
+
+        callback(null, _.extend(_.merge({}, channel), { uploads: (videos.results || []).map(function(v) {
+            return {
+                title: v.title,
+                publishedAt: new Date(v.first_aired),
+                id: _.findWhere(v.free_web_sources, { source: "youtube" }).embed.split("/").pop(),
+                thumbnail: v.thumbnail_304x171
+            }
+        }) }));
     });
 }
-
-//pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
-//pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
 
 
 /* Return links to streams for movies/series
