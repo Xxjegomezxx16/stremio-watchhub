@@ -194,7 +194,7 @@ methods["stream.find"] = function(args, callback, user) {
 
 /* Init add-on
  */
-var addon = new Stremio.Server(mathods, { stremioget: true, allow: ["http://api9.strem.io"] }, manifest);
+var addon = new Stremio.Server(methods, { stremioget: true, allow: ["http://api9.strem.io"] }, manifest);
 
 var server = require("http").createServer(function (req, res) {
     addon.middleware(req, res, function() { res.end() }); // wire the middleware - also compatible with connect / express
