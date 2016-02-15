@@ -178,16 +178,23 @@ function getStream(args, callback) {
 //pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
 
 
-var addon = new Stremio.Server({
-    "stream.get": function(args, callback, user) {
-        // TODO: do something if the queue is saturated
-        pipe.push(getStream, args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
-    },
-    "stream.find": function(args, callback, user) {
-        // TODO: do something if the queue is saturated
-        pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); 
-    }
-}, { /* secret: mySecret */ stremioget: true, allow: ["http://api8.herokuapp.com","http://api9.strem.io"] }, manifest);
+/* Return links to streams for movies/series
+ */
+var methods = { };
+
+methods["stream.get"] = function(args, callback, user) {
+    // TODO: do something if the queue is saturated
+    pipe.push(getStream, args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
+};
+
+methods["stream.find"] = function(args, callback, user) {
+    // TODO: do something if the queue is saturated
+    pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); 
+};
+
+/* Init add-on
+ */
+var addon = new Stremio.Server(mathods, { stremioget: true, allow: ["http://api9.strem.io"] }, manifest);
 
 var server = require("http").createServer(function (req, res) {
     addon.middleware(req, res, function() { res.end() }); // wire the middleware - also compatible with connect / express
@@ -195,3 +202,4 @@ var server = require("http").createServer(function (req, res) {
 {
     console.log("Guidebox Stremio Addon listening on "+server.address().port);
 }).listen(process.env.PORT || 9005);
+
