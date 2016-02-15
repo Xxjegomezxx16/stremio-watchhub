@@ -14,7 +14,14 @@ var pkg = require("./package");
 var manifest = { 
     "id": "org.stremio.guidebox",
     "types": ["movie", "series"],
-    "filter": { "query.imdb_id": { "$exists": true }, "query.type": { "$in":["series","movie"] } },
+    "filter": { 
+        "query.imdb_id": { "$exists": true }, 
+        "query.type": { "$in":["series","movie", "channel"] }, 
+
+        // leanback mode
+        "query.guidebox_id": { "$exists": true },
+        "popularities.guidebox": { "$exists": true },
+    },
     name: pkg.displayName, version: pkg.version, description: pkg.description,
     icon: "http://www.strem.io/images/icon-guidebox-addon.png",
     geolocation: ["US", "GB", "CA", "GE", "IL", "FR"],
@@ -25,6 +32,7 @@ var manifest = {
         type: "select",
         options: [ "All services", "Free services", "Subscription services", "TV Everywhere services", "Netflix", "Hulu", "iTunes", "VUDU"]
     }],
+    sorts: [ { prop: "popularities.guidebox", name: "Guidebox", types: ["channel"] } ] // leanback mode channels
 };
 
 /* 
@@ -174,6 +182,31 @@ function getStream(args, callback) {
     });
 }
 
+function findLeanback(args, callback) {
+    guideboxGet("/leanback/all/0/200", function(err, all) {
+        if (err) console.error(err);
+        callback(err ? { code: 18000, message: err.message || err } : null, all && all.results && all.results.map(function(channel, i, channels) {
+            return {
+                id: "guidebox_id:"+channel.id,
+                // we have channel imdb_id sometimes, also freebase, wikipedia, tvdb
+                posterShape: "landscape",
+                poster: channel.artwork_448x252 || channel.artwork_608x342,
+                name: channel.title,
+                type: "channel",
+                popularities: { guidebox: channels.length-i },
+            }
+        }))
+    });
+}
+
+function getLeanback(args, callback) {
+    if (! args.query) return callback(new Error("no query"));
+    if (! args.query.guidebox_id) return callback(new Error("no guidebox_id"));
+    guideboxGet("/leanback/"+args.query.guidebox_id+"/0/400", function(err, channel) {
+        console.log(channel)
+    });
+}
+
 //pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
 //pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
 
@@ -182,15 +215,20 @@ function getStream(args, callback) {
  */
 var methods = { };
 
-methods["stream.get"] = function(args, callback, user) {
+methods["stream.get"] = function(args, callback) {
     // TODO: do something if the queue is saturated
     pipe.push(getStream, args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
 };
 
-methods["stream.find"] = function(args, callback, user) {
+methods["stream.find"] = function(args, callback) {
     // TODO: do something if the queue is saturated
     pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); 
 };
+
+methods["meta.find"] = function(args, callback) { findLeanback(args, callback); };
+methods["meta.get"] = function(args, callback) { getLeanback(args, callback); };
+
+
 
 /* Init add-on
  */
