@@ -34,6 +34,7 @@ var manifest = {
     }],
     sorts: [ { prop: "popularities.guidebox", name: "Guidebox", types: ["channel"] } ] // leanback mode channels
 };
+var methods = { };
 
 /* 
  * Guildebox API guide
@@ -182,6 +183,16 @@ function getStream(args, callback) {
     });
 }
 
+methods["stream.get"] = function(args, callback) {
+    // TODO: do something if the queue is saturated
+    pipe.push(getStream, args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
+};
+
+methods["stream.find"] = function(args, callback) {
+    // TODO: do something if the queue is saturated
+    pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); 
+};
+
 //pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
 //pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
 
@@ -230,21 +241,6 @@ function getLeanback(args, callback) {
         }) }));
     });
 }
-
-
-/* Return links to streams for movies/series
- */
-var methods = { };
-
-methods["stream.get"] = function(args, callback) {
-    // TODO: do something if the queue is saturated
-    pipe.push(getStream, args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
-};
-
-methods["stream.find"] = function(args, callback) {
-    // TODO: do something if the queue is saturated
-    pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); 
-};
 
 methods["meta.find"] = function(args, callback) { findLeanback(args, callback); };
 methods["meta.get"] = function(args, callback) { getLeanback(args, callback); };
