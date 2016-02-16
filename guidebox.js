@@ -232,10 +232,11 @@ function getLeanback(args, callback) {
         if (! channel) return callback({ message: "no channel found" });
 
         callback(null, _.extend(_.merge({}, channel), { uploads: (videos.results || []).map(function(v) {
+            var stream = _.findWhere(v.free_web_sources, { source: "youtube" });
             return {
                 title: v.title,
                 publishedAt: new Date(v.first_aired),
-                id: _.findWhere(v.free_web_sources, { source: "youtube" }).embed.split("/").pop(),
+                id: stream && stream.embed.split("/").pop(),
                 thumbnail: v.thumbnail_304x171
             }
         }) }));
