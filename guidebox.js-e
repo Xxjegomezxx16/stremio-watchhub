@@ -3,7 +3,7 @@ var needle = require("needle");
 var _ = require("lodash");
 var bagpipe = require("bagpipe");
 
-var stremioCentral = "http://api8.herokuapp.com";
+var stremioCentral = "http://api9.strem.io";
 
 var GUIDEBOX_KEY = "process.env.GUIDEBOX_KEY";
 //var GUIDEBOX_KEY = "process.env.GUIDEBOX_KEY";
