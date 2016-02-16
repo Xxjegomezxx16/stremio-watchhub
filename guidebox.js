@@ -236,7 +236,7 @@ function getLeanback(args, callback) {
             return {
                 title: v.title,
                 publishedAt: new Date(v.first_aired),
-                id: stream && stream.embed.split("/").pop(),
+                id: stream && (stream.embed ? stream.embed.split("/").pop() : (stream.link ? stream.link.split("=").pop() : null)),
                 thumbnail: v.thumbnail_304x171
             }
         }) }));
