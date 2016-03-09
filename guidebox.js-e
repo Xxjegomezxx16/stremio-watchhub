@@ -3,7 +3,7 @@ var needle = require("needle");
 var _ = require("lodash");
 var bagpipe = require("bagpipe");
 
-var stremioCentral = "http://api8.herokuapp.com";
+var stremioCentral = "http://api9.strem.io";
 
 var GUIDEBOX_KEY = "process.env.GUIDEBOX_KEY";
 //var GUIDEBOX_KEY = "process.env.GUIDEBOX_KEY";
@@ -24,7 +24,7 @@ var manifest = {
     },
     name: pkg.displayName, version: pkg.version, description: pkg.description,
     icon: "http://www.strem.io/images/icon-guidebox-addon.png",
-    geolocation: ["US", "GB", "CA", "GE", "IL", "FR", "DK"],
+    geolocation: ["US", "GB", "CA", "GE", "IL", "FR", "BG", "DK"],
     repository:  "http://github.com/Ivshti/guidebox-stremio",
     endpoint: "http://guidebox.strem.io/stremioget/stremio/v1",
     settings: [{
@@ -232,10 +232,11 @@ function getLeanback(args, callback) {
         if (! channel) return callback({ message: "no channel found" });
 
         callback(null, _.extend(_.merge({}, channel), { uploads: (videos.results || []).map(function(v) {
+            var stream = _.findWhere(v.free_web_sources, { source: "youtube" });
             return {
                 title: v.title,
                 publishedAt: new Date(v.first_aired),
-                id: _.findWhere(v.free_web_sources, { source: "youtube" }).embed.split("/").pop(),
+                id: stream && (stream.embed ? stream.embed.split("/").pop() : (stream.link ? stream.link.split("=").pop() : null)),
                 thumbnail: v.thumbnail_304x171
             }
         }) }));
