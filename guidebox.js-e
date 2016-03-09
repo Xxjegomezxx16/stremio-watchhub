@@ -24,7 +24,7 @@ var manifest = {
     },
     name: pkg.displayName, version: pkg.version, description: pkg.description,
     icon: "http://www.strem.io/images/icon-guidebox-addon.png",
-    geolocation: ["US", "GB", "CA", "GE", "IL", "FR"],
+    geolocation: ["US", "GB", "CA", "GE", "IL", "FR", "DK"],
     repository:  "http://github.com/Ivshti/guidebox-stremio",
     endpoint: "http://guidebox.strem.io/stremioget/stremio/v1",
     settings: [{
