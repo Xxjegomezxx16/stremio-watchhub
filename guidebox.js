@@ -91,7 +91,7 @@ function getGuideBoxId(query, callback)
         if (res) return callback(null, res);
 
         needle.get(GUIDEBOX_BASE+"/search/"+( query.hasOwnProperty("season") ? "" : "movie/" )+"id/imdb/"+imdb_id, opts, function(err, resp, body) {
-        if (body.error) return callback(new Error(body.error));
+            if (body && body.error) return callback(new Error(body.error));
             if (err) return callback(err);
             if (body.id) cacheSet("guidebox-id", imdb_id, body.id, 365*DAY);
             return callback(null, body.id);
