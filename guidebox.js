@@ -33,7 +33,9 @@ var manifest = {
         type: "select",
         options: [ "All services", "Free services", "Subscription services", "TV Everywhere services", "Netflix", "Hulu", "iTunes", "VUDU"]
     }],
-    sorts: [ { prop: "popularities.guidebox", name: "Guidebox", types: ["channel"] } ] // leanback mode channels
+    sorts: [ 
+        { prop: "popularities.guidebox", name: "Guidebox", types: ["channel"] }, // leanback mode channels
+    ] 
 };
 var methods = { };
 
@@ -48,13 +50,13 @@ var pipe = new bagpipe(100);
 
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
-var cacheSet, cacheGet;
+var cacheSet, cacheGet, red;
 if (process.env.REDIS) {
     // In redis
     console.log("Using redis caching");
 
     var redis = require("redis");
-    var red = redis.createClient(process.env.REDIS);
+    red = redis.createClient(process.env.REDIS);
     red.on("error", function(err) { console.error("redis err",err) });
 
     cacheGet = function (domain, key, cb) { 
@@ -158,6 +160,9 @@ function getStream(args, callback) {
             .concat(body.purchase_web_sources || []);
 
             //console.log(body);
+
+            if (red && (body.free_web_sources || []).length) 
+                red.hincrby("guidebox_popularities", args.query.imdb_id, 1, function(err) { if (err) console.error(err) });
 
             // TODO: return many results if the Add-on API allows it 
             callback(null, sources.map(function(source) {
