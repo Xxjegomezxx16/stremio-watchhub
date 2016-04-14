@@ -35,6 +35,7 @@ var manifest = {
     }],
     sorts: [ 
         { prop: "popularities.guidebox", name: "Guidebox", types: ["channel"] }, // leanback mode channels
+        { prop: "popularities.guidebox_free", name: "Free", types: ["movie", "series"] }, // free stuff
     ] 
 };
 var methods = { };
@@ -249,7 +250,37 @@ function getLeanback(args, callback) {
     });
 }
 
-methods["meta.find"] = function(args, callback) { findLeanback(args, callback); };
+
+function findFree(args, callback) {
+    // /movies/all/ {limit 1} / {limit 2} / {sources} / {platform}
+
+    guideboxGet( "/" + (args.query.type == "series" ? "shows" : "movies") + "/all/0/100/free/all", function(err, body) {
+        if (err) return callback(err);
+        var items = body && body.results;
+        if (! Array.isArray(items)) callback(new Error(".results is not an array"));
+
+        callback(null, items.map(function(x, i) {
+            return {
+                imdb_id: x.imdb_id || x.imdb, 
+                name: x.title,
+                year: x.release_year,
+                type: args.query.type,
+                // in_theaters
+                // freebase, wikipedia_id, tvrage,  themoviedb, tvdb, 
+                poster: x.artwork_448x252 || x.poster_240x342, // poster_400x570
+                posterShape: x.artwork_448x252 ? "landscape" : undefined,
+                popularities: { guidebox_free: items.length - i + 1 }
+            }
+        }))
+    });
+}
+
+methods["meta.find"] = function(args, callback) { 
+    if (! args.query) return callback(new Error("no query"));
+
+    if (args.query.type === "channel") findLeanback(args, callback);
+    else findFree(args, callback);
+};
 methods["meta.get"] = function(args, callback) { getLeanback(args, callback); };
 
 
