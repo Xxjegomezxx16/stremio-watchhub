@@ -162,7 +162,7 @@ function getStream(args, callback) {
             //console.log(body);
 
             if (red && (body.free_web_sources || []).length) 
-                red.hincrby("guidebox_popularities", args.query.imdb_id, 1, function(err) { if (err) console.error(err) });
+                red.hincrby("guidebox_free", args.query.imdb_id, 1, function(err) { if (err) console.error(err) });
 
             // TODO: return many results if the Add-on API allows it 
             callback(null, sources.map(function(source) {
