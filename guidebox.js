@@ -35,9 +35,11 @@ var manifest = {
     }],
     sorts: [ 
         { prop: "popularities.guidebox", name: "Guidebox", types: ["channel"] }, // leanback mode channels
-        { prop: "popularities.guidebox_free", name: "Free", types: ["movie", "series"] }, // free stuff
     ] 
 };
+
+if (! process.env.DISABLE_FREE) manifest.sorts.push({ prop: "popularities.guidebox_free", name: "Free", types: ["movie", "series"] });
+
 var methods = { };
 
 /* 
