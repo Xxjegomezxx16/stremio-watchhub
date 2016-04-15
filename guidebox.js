@@ -140,7 +140,8 @@ function getStream(args, callback) {
             platform = "web"; // "web", "ios", "android" or "all"
 
         // TODO: isolate this in getGuidebox(), cache it with TTL
-        if (args.query.hasOwnProperty("season") || args.query.type == "series") {
+        var isSeries = args.query.hasOwnProperty("season") || args.query.type == "series";
+        if (isSeries) {
             // TV show
             guideboxGet("/show/"+id+"/episodes/"+args.query.season+"/0/100/"+sources+"/"+platform+"/true", function(err, body) {
                 if (err) { console.error(err) ; return callback({ code: 9002, message: "can not get guidebox season" }) }
@@ -165,7 +166,8 @@ function getStream(args, callback) {
             //console.log(body);
 
             if (red && (body.free_web_sources || []).length) 
-                red.hincrby("guidebox_free", args.query.imdb_id, 1, function(err) { if (err) console.error(err) });
+                red.zincrby("guidebox_free_"+(isSeries ? "series" : "movies"), 1.0, args.query.imdb_id, function(err) { if (err) console.error(err) });
+            // zrange guidebox_free_movies 0 70 withscores
 
             // TODO: return many results if the Add-on API allows it 
             callback(null, sources.map(function(source) {
