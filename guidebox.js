@@ -114,6 +114,8 @@ function guideboxGet(path, callback) {
         guideboxPrg[path] = [];
 
         needle.get(GUIDEBOX_BASE+path, function(err, resp, body) {
+            if (err) { console.error("guidebox error at "+path, err) }
+
             if (err) { err = err; body = null; }
             if (body && body.error) { err = body.error; body = null; }
 
