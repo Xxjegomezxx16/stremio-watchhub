@@ -38,7 +38,13 @@ var manifest = {
     ] 
 };
 
-if (! process.env.DISABLE_FREE) manifest.sorts.push({ prop: "popularities.guidebox_free", name: "Free", types: ["movie", "series"] });
+if (! process.env.DISABLE_FREE) { 
+   // series is disabled because:
+   // 1) landscape image
+   // 2) not all episodes are free
+   // 3) overlaps with popular series, as most of them are popular
+   manifest.sorts.push({ prop: "popularities.guidebox_free", name: "Free", types: ["movie", /* "series" */] });
+}
 
 var methods = { };
 
