@@ -203,11 +203,6 @@ function getStream(args, callback) {
     });
 }
 
-methods["stream.get"] = function(args, callback) {
-    // TODO: do something if the queue is saturated
-    pipe.push(getStream, args, function(err, resp) { callback(err, resp ? (resp[0] || null) : undefined) })
-};
-
 methods["stream.find"] = function(args, callback) {
     // TODO: do something if the queue is saturated
     pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); 
