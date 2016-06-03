@@ -38,7 +38,7 @@ var manifest = {
     ] 
 };
 
-if (! process.env.DISABLE_FREE) { 
+if (true || !process.env.DISABLE_FREE) { 
    // series is disabled because:
    // 1) landscape image
    // 2) not all episodes are free
