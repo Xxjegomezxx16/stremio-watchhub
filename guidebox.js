@@ -44,7 +44,7 @@ if (true || !process.env.DISABLE_FREE) {
    // 2) not all episodes are free
    // 3) overlaps with popular series, as most of them are popular
    // WARNING: noDiscoverTab is enabled for now; disable it at some point
-   manifest.sorts.push({ prop: "popularities.guidebox_free", name: "Free", types: ["movie", /* "series" */], noDiscoverTab: true });
+   manifest.sorts.push({ prop: "popularities.guidebox_free", name: "FREE", types: ["movie", /* "series" */], noDiscoverTab: true });
 }
 
 var methods = { };
