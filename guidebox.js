@@ -297,10 +297,11 @@ methods["meta.get"] = function(args, callback) { getLeanback(args, callback); };
  */
 var addon = new Stremio.Server(methods, { stremioget: true, allow: ["http://api9.strem.io"] }, manifest);
 
+if (module.parent) { module.exports = addon; } else {
 var server = require("http").createServer(function (req, res) {
     addon.middleware(req, res, function() { res.end() }); // wire the middleware - also compatible with connect / express
 }).on("listening", function()
 {
     console.log("Guidebox Stremio Addon listening on "+server.address().port);
 }).listen(process.env.PORT || 9005);
-
+}
