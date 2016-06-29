@@ -19,8 +19,8 @@ cd guidebox-stremio
 npm install
 GUIDEBOX_KEY="your Guidebox API KEY" node guidebox.js
 
-# Run stremio with --services=http://localhost:9005
-/Applications/Stremio.app/Contents/MacOS/Electron . --services=http://localhost:9005
+# Run stremio with --services=http://localhost:9005/stremio/v1
+/Applications/Stremio.app/Contents/MacOS/Electron . --services=http://localhost:9005/stremio/v1
 ```
 
 
