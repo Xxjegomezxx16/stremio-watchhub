@@ -272,8 +272,9 @@ function findFree(args, callback) {
                 imdb_id: x.imdb_id || x.imdb, 
                 name: x.title,
                 year: x.release_year,
+                released: new Date(x.release_date),
                 type: args.query.type,
-                // in_theaters
+                inTheaters: x.in_theaters,
                 // freebase, wikipedia_id, tvrage,  themoviedb, tvdb, 
                 poster: x.artwork_448x252 || x.poster_240x342, // poster_400x570
                 posterShape: x.artwork_448x252 ? "landscape" : undefined,
