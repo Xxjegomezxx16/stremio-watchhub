@@ -28,6 +28,7 @@ var manifest = {
     geolocation: ["US", "GB", "CA", "GE", "IL", "FR", "BG", "DK"],
     repository:  "http://github.com/Ivshti/guidebox-stremio",
     endpoint: "http://guidebox.strem.io/stremioget/stremio/v1",
+    idProperty: ["guidebox_id", "imdb_id"],
     settings: [{
         name: "Default source",
         type: "select",
