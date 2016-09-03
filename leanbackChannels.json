@@ -1,0 +1,651 @@
+[
+    {
+        "id": "guidebox_id:953",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/041014/thumbnails_large/953-942514576-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/041014/thumbnails_xlarge/953-4997088234-608x342.jpg",
+        "name": "CBS Evening News",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 59
+        }
+    },
+    {
+        "id": "guidebox_id:17431",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/new_thumbs/thumbnails_large/17431-7659715679-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/new_thumbs/thumbnails_xlarge/17431-9939222224-608x342.jpg",
+        "name": "The Tonight Show Starring Jimmy Fallon",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 58
+        }
+    },
+    {
+        "id": "guidebox_id:15628",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/15628-1823249120-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/15628-3383854018-608x342.jpg",
+        "name": "The Ellen DeGeneres Show",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 57
+        }
+    },
+    {
+        "id": "guidebox_id:18669",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/041014/thumbnails_large/18669-9059698544-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/041014/thumbnails_xlarge/18669-3287779461-608x342.jpg",
+        "name": "Last Week Tonight with John Oliver",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 56
+        }
+    },
+    {
+        "id": "guidebox_id:2094",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/2094-8357711606-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/2094-7746941847-608x342.jpg",
+        "name": "TMZ",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 55
+        }
+    },
+    {
+        "id": "guidebox_id:18202",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/041014/thumbnails_large/18202-3016638104-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/041014/thumbnails_xlarge/18202-9257002757-608x342.jpg",
+        "name": "CBS This Morning",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 54
+        }
+    },
+    {
+        "id": "guidebox_id:23983",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/120214/thumbnails_large/23983-4837265946-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/120214/thumbnails_xlarge/23983-7996826693-608x342.jpg",
+        "name": "CNN",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 53
+        }
+    },
+    {
+        "id": "guidebox_id:448",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/120214/thumbnails_large/448-4247116484-448x252-show-thumbnail.jpg",
+        "banner": "http://static-api.guidebox.com/120214/thumbnails_xlarge/448-462755869-608x342-show-thumbnail.jpg",
+        "name": "Jimmy Kimmel Live",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 52
+        }
+    },
+    {
+        "id": "guidebox_id:24028",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/120214/thumbnails_large/24028-934192711-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/120214/thumbnails_xlarge/24028-7151731378-608x342.jpg",
+        "name": "CNBC",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 51
+        }
+    },
+    {
+        "id": "guidebox_id:220",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/220-8406318817-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/220-1067367606-608x342.jpg",
+        "name": "Saturday Night Live",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 50
+        }
+    },
+    {
+        "id": "guidebox_id:944",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/944-7780605233-448x252-show-thumbnail.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/944-5652089151-608x342-show-thumbnail.jpg",
+        "name": "Conan",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 49
+        }
+    },
+    {
+        "id": "guidebox_id:190",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/190-6550508211-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/190-1766129905-608x342.jpg",
+        "name": "The Chew",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 48
+        }
+    },
+    {
+        "id": "guidebox_id:110",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/041014/thumbnails_large/110-7800956880-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/041014/thumbnails_xlarge/110-743691600-608x342.jpg",
+        "name": "PBS NewsHour",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 47
+        }
+    },
+    {
+        "id": "guidebox_id:14014",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/14014-5717439726-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/14014-9008595612-608x342.jpg",
+        "name": "Entertainment Tonight",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 46
+        }
+    },
+    {
+        "id": "guidebox_id:23121",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/23121-6527482057-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/23121-883102385-608x342.jpg",
+        "name": "BuzzFeedVideo",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 45
+        }
+    },
+    {
+        "id": "guidebox_id:11352",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/11352-1130872183-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/11352-9866307801-608x342.jpg",
+        "name": "Key & Peele",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 44
+        }
+    },
+    {
+        "id": "guidebox_id:978",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/978-9502872075-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/978-3567707120-608x342.jpg",
+        "name": "Late Show With David Letterman",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 43
+        }
+    },
+    {
+        "id": "guidebox_id:13981",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/13981-2519189674-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/13981-2303436171-608x342.jpg",
+        "name": "Kroll Show",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 42
+        }
+    },
+    {
+        "id": "guidebox_id:406",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/406-116425977-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/406-9251726544-608x342.jpg",
+        "name": "Tosh.0",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 41
+        }
+    },
+    {
+        "id": "guidebox_id:17301",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/new_thumbs/thumbnails_large/17301-4118029000-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/new_thumbs/thumbnails_xlarge/17301-7324552717-608x342.jpg",
+        "name": "Broad City",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 40
+        }
+    },
+    {
+        "id": "guidebox_id:22713",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22713-7976545044-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22713-4250669084-608x342.jpg",
+        "name": "Revision3",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 39
+        }
+    },
+    {
+        "id": "guidebox_id:15278",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/15278-4057653113-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/15278-5771311033-608x342.jpg",
+        "name": "Inside Amy Schumer",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 38
+        }
+    },
+    {
+        "id": "guidebox_id:17457",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/new_thumbs/thumbnails_large/17457-8863298003-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/new_thumbs/thumbnails_xlarge/17457-9854182326-608x342.jpg",
+        "name": "Review",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 37
+        }
+    },
+    {
+        "id": "guidebox_id:23814",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/120214/thumbnails_large/23814-1971946014-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/120214/thumbnails_xlarge/23814-5259120543-608x342.jpg",
+        "name": "Fox News",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 36
+        }
+    },
+    {
+        "id": "guidebox_id:24043",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/120214/thumbnails_large/24043-2928201570-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/120214/thumbnails_xlarge/24043-3774599005-608x342.jpg",
+        "name": "Bloomberg News",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 35
+        }
+    },
+    {
+        "id": "guidebox_id:976",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/976-164696863-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/976-9647033736-608x342.jpg",
+        "name": "The Talk",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 34
+        }
+    },
+    {
+        "id": "guidebox_id:17865",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbs03_14/thumbnails_large/17865-8092116005-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbs03_14/thumbnails_xlarge/17865-3115803939-608x342.jpg",
+        "name": "The Young Turks",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 33
+        }
+    },
+    {
+        "id": "guidebox_id:22804",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22804-6530654742-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22804-2232572246-608x342.jpg",
+        "name": "PewDiePie",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 32
+        }
+    },
+    {
+        "id": "guidebox_id:24044",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/120214/thumbnails_large/24044-301207742-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/120214/thumbnails_xlarge/24044-5540566826-608x342.jpg",
+        "name": "msnbc",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 31
+        }
+    },
+    {
+        "id": "guidebox_id:24340",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/120214/thumbnails_large/24340-6043641642-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/120214/thumbnails_xlarge/24340-7519602589-608x342.jpg",
+        "name": "Comedy Central",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 30
+        }
+    },
+    {
+        "id": "guidebox_id:127",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/041014/thumbnails_large/127-7390779061-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/041014/thumbnails_xlarge/127-6016330402-608x342.jpg",
+        "name": "Sesame Street",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 29
+        }
+    },
+    {
+        "id": "guidebox_id:24042",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/120214/thumbnails_large/24042-735113169-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/120214/thumbnails_xlarge/24042-3088811725-608x342.jpg",
+        "name": "NBC News",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 28
+        }
+    },
+    {
+        "id": "guidebox_id:24041",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/120214/thumbnails_large/24041-9241736396-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/120214/thumbnails_xlarge/24041-8950224924-608x342.jpg",
+        "name": "HLN",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 27
+        }
+    },
+    {
+        "id": "guidebox_id:14806",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/041014/thumbnails_large/14806-3877177211-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/041014/thumbnails_xlarge/14806-4646402849-608x342.jpg",
+        "name": "The Eric Andre Show",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 26
+        }
+    },
+    {
+        "id": "guidebox_id:2450",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/2450-1339241816-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/2450-9958431445-608x342.jpg",
+        "name": "Check It Out! with Dr. Steve Brule",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 25
+        }
+    },
+    {
+        "id": "guidebox_id:22815",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22815-775088151-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22815-9384585321-608x342.jpg",
+        "name": "Mental Floss",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 24
+        }
+    },
+    {
+        "id": "guidebox_id:22733",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22733-538580418-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22733-6026537684-608x342.jpg",
+        "name": "CBS News",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 23
+        }
+    },
+    {
+        "id": "guidebox_id:22744",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22744-329632019-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22744-9867666838-608x342.jpg",
+        "name": "Nerdist",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 22
+        }
+    },
+    {
+        "id": "guidebox_id:22727",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22727-6128148199-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22727-9949283814-608x342.jpg",
+        "name": "Cracked",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 21
+        }
+    },
+    {
+        "id": "guidebox_id:22723",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22723-5757923191-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22723-1864892845-608x342.jpg",
+        "name": "AwesomenessTV",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 20
+        }
+    },
+    {
+        "id": "guidebox_id:22728",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22728-9072702936-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22728-8186110751-608x342.jpg",
+        "name": "Funny or Die",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 19
+        }
+    },
+    {
+        "id": "guidebox_id:22747",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22747-1184596941-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22747-8980004489-608x342.jpg",
+        "name": "Rooster Teeth",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 18
+        }
+    },
+    {
+        "id": "guidebox_id:14607",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/14607-1396187437-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/14607-1134711234-608x342.jpg",
+        "name": "Through the Wormhole with Morgan Freeman",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 17
+        }
+    },
+    {
+        "id": "guidebox_id:22715",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22715-7795819323-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22715-3710276485-608x342.jpg",
+        "name": "TestTube",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 16
+        }
+    },
+    {
+        "id": "guidebox_id:979",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/041014/thumbnails_large/979-2488577920-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/041014/thumbnails_xlarge/979-2217703578-608x342.jpg",
+        "name": "Live on Letterman",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 15
+        }
+    },
+    {
+        "id": "guidebox_id:22900",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22900-5859055100-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22900-8215204067-608x342.jpg",
+        "name": "zefrank1",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 14
+        }
+    },
+    {
+        "id": "guidebox_id:22982",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22982-3173311269-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22982-149064153-608x342.jpg",
+        "name": "REACT",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 13
+        }
+    },
+    {
+        "id": "guidebox_id:22712",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22712-9916762043-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22712-5106817125-608x342.jpg",
+        "name": "CollegeHumor",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 12
+        }
+    },
+    {
+        "id": "guidebox_id:2434",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/2434-3453678610-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/2434-7046935209-608x342.jpg",
+        "name": "Robot Chicken",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 11
+        }
+    },
+    {
+        "id": "guidebox_id:22734",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22734-4577630088-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22734-2272373988-608x342.jpg",
+        "name": "The Slow Mo Guys",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 10
+        }
+    },
+    {
+        "id": "guidebox_id:23148",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/23148-2786644069-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/23148-4721514708-608x342.jpg",
+        "name": "Los Angeles Times",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 9
+        }
+    },
+    {
+        "id": "guidebox_id:17661",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbs03_14/thumbnails_large/17661-7131741936-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbs03_14/thumbnails_xlarge/17661-8224392878-608x342.jpg",
+        "name": "Style.com",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 8
+        }
+    },
+    {
+        "id": "guidebox_id:22701",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22701-4620886971-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22701-3893049900-608x342.jpg",
+        "name": "Smosh",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 7
+        }
+    },
+    {
+        "id": "guidebox_id:22720",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22720-1401876058-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22720-8712951010-608x342.jpg",
+        "name": "VICE",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 6
+        }
+    },
+    {
+        "id": "guidebox_id:22746",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22746-6915212250-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22746-6581231668-608x342.jpg",
+        "name": "PBS Digital Studios",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 5
+        }
+    },
+    {
+        "id": "guidebox_id:22710",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22710-7477848222-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22710-3230863265-608x342.jpg",
+        "name": "TheFineBros",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 4
+        }
+    },
+    {
+        "id": "guidebox_id:22704",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22704-5142561612-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22704-8841832345-608x342.jpg",
+        "name": "Disney Parks",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 3
+        }
+    },
+    {
+        "id": "guidebox_id:22714",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/091414/thumbnails_large/22714-7092563095-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/091414/thumbnails_xlarge/22714-3337499853-608x342.jpg",
+        "name": "The Onion",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 2
+        }
+    },
+    {
+        "id": "guidebox_id:980",
+        "posterShape": "landscape",
+        "poster": "http://static-api.guidebox.com/thumbnails_large/980-4880261733-448x252.jpg",
+        "banner": "http://static-api.guidebox.com/thumbnails_xlarge/980-7399026388-608x342.jpg",
+        "name": "The Late Late Show with Craig Ferguson",
+        "type": "channel",
+        "popularities": {
+            "guidebox": 1
+        }
+    }
+]

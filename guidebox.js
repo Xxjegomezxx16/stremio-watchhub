@@ -217,10 +217,15 @@ methods["stream.find"] = function(args, callback) {
 /* Leanback mode - implement as channels
  */
 var leanbackChannels = [];
+
+// LEANBACK MODE APIS are deprecated
+leanbackChannels = require("./leanbackChannels");
+
+/*
 function findLeanback(args, callback) {
     guideboxGet("/leanback/all/0/200", function(err, all) {
         if (err) console.error(err);
-        
+
         leanbackChannels = (all && all.results && all.results.map(function(channel, i, channels) {
             return {
                 id: "guidebox_id:"+channel.id,
@@ -238,6 +243,7 @@ function findLeanback(args, callback) {
     });
 }
 findLeanback({}, function() { }); // get leanbackChannels
+*/
 
 function getLeanback(args, callback) {
     if (! args.query) return callback(new Error("no query"));
