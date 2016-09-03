@@ -248,13 +248,14 @@ findLeanback({}, function() { }); // get leanbackChannels
 function getLeanback(args, callback) {
     if (! args.query) return callback(new Error("no query"));
     if (! args.query.guidebox_id) return callback(new Error("no guidebox_id"));
-    guideboxGet("/leanback/"+args.query.guidebox_id+"/0/100", function(err, videos) {
+
+    guideboxGet("/show/"+args.query.guidebox_id+"/clips/all/0/25/youtube/all/true?min_duration=60", function(err, res) {
         if (err) return callback({ message: err.message || err, code: 9051 });
 
         var channel = _.findWhere(leanbackChannels, { id: "guidebox_id:" + args.query.guidebox_id });
         if (! channel) return callback({ message: "no channel found" });
 
-        callback(null, _.extend(_.merge({}, channel), { uploads: (videos.results || []).map(function(v) {
+        callback(null, _.extend(_.merge({}, channel), { uploads: (res.results || []).map(function(v) {
             var stream = _.findWhere(v.free_web_sources, { source: "youtube" });
             return {
                 title: v.title,
@@ -265,6 +266,8 @@ function getLeanback(args, callback) {
         }) }));
     });
 }
+
+// getLeanback({ query: {guidebox_id: "17431" }}, function(err, res) { console.log(err,res) })
 
 
 function findFree(args, callback) {
