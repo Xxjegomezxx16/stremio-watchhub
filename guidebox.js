@@ -3,8 +3,6 @@ var needle = require("needle");
 var _ = require("lodash");
 var bagpipe = require("bagpipe");
 
-var stremioCentral = "http://api9.strem.io";
-
 var GUIDEBOX_KEY = process.env.GUIDEBOX_KEY;
 //var GUIDEBOX_KEY = "process.env.GUIDEBOX_KEY";
 var GUIDEBOX_REGION = "US"; // TODO: UK
@@ -14,9 +12,10 @@ var pkg = require("./package");
 var manifest = { 
     "id": "org.stremio.guidebox",
     "types": ["movie", "series"],
+    // OBSOLETE; used instead of idProperty/types in pre-4.0 stremio
     "filter": { 
         "query.imdb_id": { "$exists": true }, 
-        "query.type": { "$in":["series","movie", "channel"] }, 
+        "query.type": { "$in":["series", "movie", "channel"] }, 
 
         // leanback mode
         "query.guidebox_id": { "$exists": true },
@@ -214,15 +213,17 @@ methods["stream.find"] = function(args, callback) {
 //pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
 
 
-/* Leanback mode - implement as channels
- */
+// Leanback mode
+//  implemented as channels which will be added in Discover/Board
 var leanbackChannels = [];
 
 // LEANBACK MODE APIS are deprecated
 leanbackChannels = require("./leanbackChannels");
 
-/*
+
 function findLeanback(args, callback) {
+    callback(null, leanbackChannels);
+    /*
     guideboxGet("/leanback/all/0/200", function(err, all) {
         if (err) console.error(err);
 
@@ -241,9 +242,9 @@ function findLeanback(args, callback) {
 
         callback(err ? { code: 9050, message: err.message || err } : null, leanbackChannels);
     });
+    */
 }
 findLeanback({}, function() { }); // get leanbackChannels
-*/
 
 function getLeanback(args, callback) {
     if (! args.query) return callback(new Error("no query"));
@@ -269,7 +270,8 @@ function getLeanback(args, callback) {
 
 // getLeanback({ query: {guidebox_id: "17431" }}, function(err, res) { console.log(err,res) })
 
-
+// FREE movies/series listings
+//  lists content that is free to stream legally in your country
 function findFree(args, callback) {
     // /movies/all/ {limit 1} / {limit 2} / {sources} / {platform}
 
