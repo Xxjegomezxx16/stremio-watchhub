@@ -243,7 +243,7 @@ function getStream(args, callback) {
 
 methods["stream.find"] = function(args, callback) {
     // TODO: do something if the queue is saturated
-    pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp.slice(0,4) : undefined) }); 
+    pipe.push(getStream, args, function(err, resp) { callback(err, resp ? resp : undefined) }); 
 };
 
 //pipe.push(getStream, {query:{imdb_id:"tt0816692"}},function(){console.log(Date.now(), arguments)})
