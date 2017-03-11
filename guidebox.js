@@ -167,39 +167,76 @@ function getStream(args, callback) {
 
         function serve(body) {
             if (! body) return callback(null, [ ]);
-            // TODO: preferences - HD vs SD
-            var sources = (body.free_web_sources || [])
-            .concat(body.subscription_web_sources || [])
-            .concat(body.tv_everywhere_web_sources || [])
-            .concat(body.purchase_web_sources || []);
 
-            //console.log(body);
+            //console.log(JSON.stringify(body, null, 4))
 
             if (red && (body.free_web_sources || []).length) 
                 red.zincrby("guidebox_free_"+(isSeries ? "series" : "movies"), 1.0, args.query.imdb_id, function(err) { if (err) console.error(err) });
             // zrange guidebox_free_movies 0 70 withscores
 
-            // TODO: return many results if the Add-on API allows it 
-            callback(null, sources.map(function(source) {
-                var isFree = (body.free_web_sources || []).indexOf(source) > -1;
-                var isSubscription = (body.subscription_web_sources || []).indexOf(source) > -1;
+            var sources = { };
 
-                var title = (source.formats || [])
+            var addSources = function(all, extra) {
+                (all || []).forEach(function(src) {
+                    var id = src.source;
+                    if (! sources.hasOwnProperty(id)) sources[id] = [];
+                    sources[id].push(_.extend(src, extra || {}))
+                })
+            }
+
+            addSources(body.free_web_sources, { isFree: true, platform: "web" })
+            addSources(body.subscription_web_sources, { isSubscription: true, platform: "web" })
+            addSources(body.tv_everywhere_web_sources, { platform: "web" })
+            addSources(body.purchase_web_sources, { platform: "web" })
+
+            addSources(body.free_android_sources, { isFree: true, platform: "android" })
+            addSources(body.subscription_android_sources, { isSubscription: true, platform: "android" })
+            addSources(body.tv_everywhere_android_sources, { platform: "android" })
+            addSources(body.purchase_android_sources, { platform: "android" })
+
+            addSources(body.free_ios_sources, { isFree: true, platform: "ios" })
+            addSources(body.subscription_ios_sources, { isSubscription: true, platform: "ios" })
+            addSources(body.tv_everywhere_ios_sources, { platform: "ios" })
+            addSources(body.purchase_ios_sources, { platform: "ios" })
+
+            // sources are now grouped by id; this is going to get mapped to all streams
+            var streams = Object.keys(sources).map(function(k) {
+                var all = sources[k]
+                var first = all[0]
+
+                // WARNING: this logic relies that there'd be the same prices across Android/iOS/web, which is most often the case
+                var title = (first.formats || [])
                     .sort(function(a, b) { return parseFloat(a.price) - parseFloat(b.price) }).slice(0,2)
                     .map(function(t) { return t.price+"$ to "+t.type+" "+t.format }).join(", ");
 
-                var tag = [source.source];
-                if (_.findWhere(source.formats, { format: "HD" })) tag.push("hd");
-
-                return {
+                var tag = [k];
+                if (_.findWhere(first.formats, { format: "HD" })) tag.push("hd");
+                
+                var externalUris = []
+                var stream = {
                     availability: 3,
-                    name: source.display_name,
+                    name: first.display_name,
                     title: title, tag: tag,
-                    externalUrl: source.link,
-                    isFree: isFree,
-                    isSubscription: isSubscription
+                    isFree: first.isFree,
+                    isSubscription: first.isSubscription,
+                    externalUris: externalUris,
                 }
-            }));
+
+                all.forEach(function(source) {
+                    if (source.platform === "web") stream.externalUrl = source.link;
+
+                    // WARNING: for iOS, App Store guidelines require app_required (all purchases to pass through Apple's ecosystem)
+                    if (source.platform === "android" || (source.platform === "ios" && source.app_required)) externalUris.push({
+                        platform: source.platform,
+                        uri: source.link,
+                        appUri: source.app_download_link,
+                    })
+                })
+
+                return stream
+            })
+
+            callback(null, streams)
         };
     });
 }
