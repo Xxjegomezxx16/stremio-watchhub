@@ -8,6 +8,13 @@ var GUIDEBOX_KEY = process.env.GUIDEBOX_KEY;
 var GUIDEBOX_REGION = "US"; // TODO: UK
 var GUIDEBOX_BASE = "http://api-public.guidebox.com/v1.43/"+GUIDEBOX_REGION+"/"+GUIDEBOX_KEY;
 
+// geolocations for which the add-on will be enabled by default
+var GEOLOCATIONS = ["US", "GB", "CA", "GE", "IL", "FR", "BG", "DK", "NO"];
+
+// geolocations for which we'll make separate guidebox calls to retrieve region-specific info
+// TODO: implement
+var GUIDEBOX_REGIONS = ["US", "GB", "FR"];
+
 var pkg = require("./package");
 var manifest = { 
     "id": "org.stremio.guidebox",
@@ -25,7 +32,7 @@ var manifest = {
     icon: "http://www.strem.io/images/icon-guidebox-addon.png",
     logo: "http://www.strem.io/images/addons/guidebox-logo.png",
     //geolocation: ["US", "GB", "CA", "GE", "IL", "FR", "BG", "DK"],
-    geolocation: ["US", "GB", "CA", "GE", "IL", "FR", "BG", "DK", "NO"],
+    geolocation: GEOLOCATIONS,
     repository:  "http://github.com/Ivshti/guidebox-stremio",
     endpoint: "http://guidebox.strem.io/stremioget/stremio/v1",
     idProperty: ["guidebox_id", "imdb_id"],
