@@ -217,8 +217,8 @@ function getStream(args, callback) {
                     availability: 3,
                     name: first.display_name,
                     title: title, tag: tag,
-                    isFree: first.isFree,
-                    isSubscription: first.isSubscription,
+                    isFree: first.isFree || false,
+                    isSubscription: first.isSubscription || false,
                     externalUris: externalUris,
                 }
 
