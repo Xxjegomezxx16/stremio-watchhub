@@ -1,7 +1,7 @@
 {
   "name": "stremio-guidebox",
   "displayName": "Guidebox",
-  "version": "1.12.2",
+  "version": "1.13.0",
   "description": "Find where to stream your favorite movies and shows amongst iTunes, Hulu, Amazon and other UK/US services.",
   "main": "guidebox.js",
   "scripts": {
