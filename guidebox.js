@@ -154,7 +154,7 @@ function getStream(args, callback) {
         if (! id) { console.error("did not manage to match imdb id to guidebox ("+args.query.imdb_id+")"); return callback(null, []); }
         
         var sources = "all", // "free", "tv_everywhere", "subscription", "purchase" or "all"; TODO free
-            platform = "web"; // "web", "ios", "android" or "all"
+            platform = "all"; // "web", "ios", "android" or "all"
 
         // TODO: isolate this in getGuidebox(), cache it with TTL
         var isSeries = args.query.hasOwnProperty("season") || args.query.type == "series";
