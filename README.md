@@ -1,4 +1,4 @@
-# Guidebox Add-on for Stremio
+# WatchHub Add-on for Stremio
 This Add-on allows Stremio to find a movie/tv episode from many streaming services, including Netflix, Hulu and iTunes.
 Currently it selects a source in this priority: free, tv everywhere, purchase, subscription.
 
@@ -14,10 +14,10 @@ Guidebox has launched internationally so support in this add-on is on the agenda
 
 ```bash
 # Clone the repo
-git clone http://github.com/Ivshti/guidbox-stremio
-cd guidebox-stremio
+git clone http://github.com/Ivshti/stremio-watchhub
+cd stremio-watchhub
 npm install
-GUIDEBOX_KEY="your Guidebox API KEY" node guidebox.js
+GUIDEBOX_KEY="your Guidebox API KEY" node watchhub.js
 
 # Run stremio with --services=http://localhost:9005/stremio/v1
 /Applications/Stremio.app/Contents/MacOS/Electron . --services=http://localhost:9005/stremio/v1
