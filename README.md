@@ -14,7 +14,7 @@ Guidebox has launched internationally so support in this add-on is on the agenda
 
 ```bash
 # Clone the repo
-git clone http://github.com/Ivshti/stremio-watchhub
+git clone http://github.com/Stremio/stremio-watchhub
 cd stremio-watchhub
 npm install
 GUIDEBOX_KEY="your Guidebox API KEY" node watchhub.js
