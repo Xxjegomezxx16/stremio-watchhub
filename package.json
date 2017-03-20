@@ -1,6 +1,6 @@
 {
-  "name": "stremio-guidebox",
-  "displayName": "Guidebox",
+  "name": "stremio-watchhub",
+  "displayName": "WatchHub",
   "version": "1.13.0",
   "description": "Find where to stream your favorite movies and shows amongst iTunes, Hulu, Amazon and other UK/US services.",
   "main": "guidebox.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/Ivshti/guidebox-stremio"
+    "url": "http://github.com/Stremio/stremio-watchhub"
   },
   "keywords": [
     "guidebox",
@@ -20,9 +20,9 @@
   "author": "Ivo Georgiev <ivo@linvo.com> (http://ivogeorgiev.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Ivshti/guidebox-stremio/issues"
+    "url": "https://github.com/Stremio/stremio-watchhub/issues"
   },
-  "homepage": "https://github.com/Ivshti/guidebox-stremio",
+  "homepage": "https://github.com/Stremio/stremio-watchhub",
   "dependencies": {
     "bagpipe": "^0.3.5",
     "hiredis": "^0.4.1",
