@@ -3,10 +3,10 @@
   "displayName": "WatchHub",
   "version": "1.13.1",
   "description": "Find where to stream your favorite movies and shows amongst iTunes, Hulu, Amazon and other UK/US services.",
-  "main": "guidebox.js",
+  "main": "watchhub.js",
   "scripts": {
     "test": "tape test/*",
-    "start": "node ./guidebox.js"
+    "start": "node ./watchhub.js"
   },
   "repository": {
     "type": "git",
