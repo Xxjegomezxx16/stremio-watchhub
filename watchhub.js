@@ -36,6 +36,7 @@ var manifest = {
     repository:  "http://github.com/Stremio/stremio-watchhub",
     endpoint: "http://watchhub.strem.io/stremioget/stremio/v1",
     idProperty: ["guidebox_id", "imdb_id"],
+    contactEmail: "office@strem.io",
     settings: [{
         name: "Default source",
         type: "select",
