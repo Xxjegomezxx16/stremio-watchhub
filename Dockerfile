@@ -4,7 +4,7 @@ FROM node:argon
 
 # Meta
 MAINTAINER Ivo Georgiev <ivo@strem.io>
-LABEL Description="Stremio Watchhub" Vendor="Smart Code ltd" Version="1.13.2"
+LABEL Description="Stremio Watchhub" Vendor="Smart Code ltd" Version="1.13.3"
 
 
 # Create app directory

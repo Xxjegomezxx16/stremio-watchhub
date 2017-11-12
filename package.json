@@ -1,7 +1,7 @@
 {
   "name": "stremio-watchhub",
   "displayName": "WatchHub",
-  "version": "1.13.2",
+  "version": "1.13.3",
   "description": "Find where to stream your favorite movies and shows amongst iTunes, Hulu, Amazon and other UK/US services.",
   "main": "watchhub.js",
   "scripts": {
