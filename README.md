@@ -10,6 +10,14 @@ Currently US and UK supported - will be able to set that up manually through Str
 Guidebox has launched internationally so support in this add-on is on the agenda.
 
 
+
+## Building and deploying
+
+``npm run docker-build``
+
+``npm run docker-push``
+
+
 ## How to run?
 
 ```bash
