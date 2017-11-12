@@ -6,7 +6,9 @@
   "main": "watchhub.js",
   "scripts": {
     "test": "tape test/*",
-    "start": "node ./watchhub.js"
+    "start": "node ./watchhub.js",
+    "docker-build": "docker build --tag=stremio/watchhub .",
+    "docker-push": "docker push stremio/watchhub"
   },
   "repository": {
     "type": "git",
