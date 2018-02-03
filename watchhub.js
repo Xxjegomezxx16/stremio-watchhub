@@ -136,7 +136,7 @@ function guideboxGet(path, callback) {
             if (body && body.error) { err = body.error; body = null; }
 
             var useful = body && ((body.results && body.results.length) || body.id);
-            var expire = useful ? (path.match("movie") ? 15*DAY : 6*DAY) : 2*DAY;
+            var expire = useful ? (path.match("movie") ? 35*DAY : 10*DAY) : 7*DAY;
             if (body) cacheSet("guidebox", path, body, expire);
             
             callback(err, body);
