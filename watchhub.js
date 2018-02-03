@@ -70,12 +70,12 @@ var pipe = new bagpipe(100);
 var opts = { follow_max: 3, open_timeout: 10*1000, json: true };
 
 var cacheSet, cacheGet, red;
-if (process.env.REDIS) {
+if (process.env.REDIS || process.env.META_DB_REDIS) {
     // In redis
     console.log("Using redis caching");
 
     var redis = require("redis");
-    red = redis.createClient(process.env.REDIS);
+    red = redis.createClient(process.env.REDIS || process.env.META_DB_REDIS);
     red.on("error", function(err) { console.error("redis err",err) });
 
     cacheGet = function (domain, key, cb) { 
